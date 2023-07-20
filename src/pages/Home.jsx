@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Login from "./Login";
 import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -51,21 +51,22 @@ function Home(props) {
     //   .catch(function (error) {
     //     console.log(error);
     //   });
-
-    // axios
-    //   .get("http://localhost:8800/list")
-    //   .then(function (response) {
-    //     // handle success
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
-    //   .finally(function () {
-    //     // always executed
-    //   });
   };
+  useEffect(() => {
+    axios
+      .get("http://localhost:8800/list")
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+  }, []);
 
   return (
     <div className="bg-slate-800 mx-auto max-w-xl flex flex-col mt-5 p-3 rounded-md gap-3">
