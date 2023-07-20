@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* margin: 0; */
+  /* display: flex;. */
+  /* place-items: center;
+  min-width: 320px;
+  min-height: 100vh; */
+  --tw-bg-opacity: 1;
+  background-color: rgb(15 23 35 / var(--tw-bg-opacity));
+}

@@ -1,0 +1,47 @@
+  const uploadHandler = () => {
+    if (!files) return;
+    setIsLoading(true);
+    
+    axios({
+      method: "POST",
+      url: "http://localhost:8800/upload",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      data: {
+        file: files,
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        // setIsLoading(false);
+        // setProgress((res.data.loaded / res.data.total) * 100);
+        // console.log((res.data.loaded / res.data.total) * 100);
+      })
+      .catch((err) => console.log(err));
+
+    // axios
+    //   .post("http://localhost:8800/upload", {
+    //     file: files,
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    // axios
+    //   .get("http://localhost:8800/list")
+    //   .then(function (response) {
+    //     // handle success
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     // handle error
+    //     console.log(error);
+    //   })
+    //   .finally(function () {
+    //     // always executed
+    //   });
+  };
