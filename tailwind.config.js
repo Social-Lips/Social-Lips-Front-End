@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         background_dark_blue: "#081A26",
-        background_light_blue_: "#1A2730",
+        background_light_blue: "#1A2730",
         button_blue: "#2B75FF",
         font_dark_gray: "#D9D9D9",
         font_light_gray: "#9A9A9A",
