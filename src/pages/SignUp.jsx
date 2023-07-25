@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSignUp } from "../hooks/useSignUp";
 
 const SignUp = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { signup, isLoading, error } = useSignUp();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await signup(email, password);
+  };
   return (
     <main className="flex">
       {/* logo section */}
@@ -16,7 +26,7 @@ const SignUp = () => {
         <h1 className="text-white text-[24px] font-medium mb-10">
           Hey, Hello 👋
         </h1>
-        <form action="POST" onClick={""} className="flex flex-col">
+        <form action="POST" onSubmit={handleSubmit} className="flex flex-col">
           {/* name row */}
           <div className="flex w-full justify-between items-center">
             <input
@@ -36,6 +46,7 @@ const SignUp = () => {
             type="email"
             placeholder="Enter Your Email"
             className="text_input"
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           {/* password email */}
@@ -43,6 +54,7 @@ const SignUp = () => {
             type="password"
             placeholder="Enter Your Password"
             className="text_input"
+            onChange={(e) => setPassword(e.target.value)}
           />
           {/* choose file */}
           <div className="flex items-center mb-8">
