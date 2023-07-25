@@ -47,7 +47,7 @@ const SignUp = () => {
           {/* choose file */}
           <div className="flex items-center mb-8">
             <label className="w-[100px] h-[45px] self-center bg-input_box_gray rounded-md text-sm font-normal flex justify-center items-center text-white cursor-pointer">
-              <p className="">Choose video</p>
+              <p className="">Choose Picture</p>
               <input name="" type="file" id="formId" hidden />
             </label>
             <p className="font-light text-font_dark_gray text-[14px] ml-4 ">
