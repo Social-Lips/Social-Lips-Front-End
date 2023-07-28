@@ -43,7 +43,7 @@ const ProfileCard = () => {
         <div className="flex justify-center items-center flex-col">
           <p className="font-semibold text-[24px] text-white">2022</p>
           <p className="font-light text-[16px] text-font_light_gray">
-            Followers
+            Followings
           </p>
         </div>
         <div className="absolute h-[63px] w-[1px] bg-input_box_gray" />
