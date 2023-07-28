@@ -8,8 +8,8 @@ const FollowYouCard = () => {
       </h1>
 
       {[1, 1, 1, 1, 1, 1].map((item, index) => (
-        <>
-          <div key={index} className="flex justify-between items-center m-3">
+        <div key={index}>
+          <div className="flex justify-between items-center m-3">
             {/* profile iamge and name */}
             <div className="flex gap-x-4">
               {/* image */}
@@ -41,7 +41,7 @@ const FollowYouCard = () => {
             {/* horizontal line */}
           </div>
           <div className="w-full h-[1px] bg-input_box_gray" />
-        </>
+        </div>
       ))}
     </div>
   );

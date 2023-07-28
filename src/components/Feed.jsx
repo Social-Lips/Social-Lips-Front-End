@@ -1,6 +1,7 @@
 import React from "react";
 import ProfileCard from "./ProfileCard";
 import FollowYouCard from "./FollowYouCard";
+import UploadCard from "./UploadCard";
 
 const Feed = () => {
   return (
@@ -15,7 +16,9 @@ const Feed = () => {
       </div>
 
       {/* middle column */}
-      <div className="bg-red-400 h-[473px] w-[680px]">middle</div>
+      <div className="h-[473px] w-[680px]">
+        <UploadCard />
+      </div>
 
       {/* right column */}
       <div className="bg-red-400 h-[473px] w-[300px]">right</div>
