@@ -1,7 +1,10 @@
 import React from "react";
-import ProfileCard from "./ProfileCard";
-import FollowYouCard from "./FollowYouCard";
-import UploadCard from "./UploadCard";
+import {
+  ProfileCard,
+  FollowYouCard,
+  UploadCard,
+  PostCard,
+} from "../components";
 
 const Feed = () => {
   return (
@@ -16,8 +19,9 @@ const Feed = () => {
       </div>
 
       {/* middle column */}
-      <div className="h-[473px] w-[680px]">
+      <div className="h-[473px] w-[680px] flex flex-col gap-y-2">
         <UploadCard />
+        <PostCard />
       </div>
 
       {/* right column */}

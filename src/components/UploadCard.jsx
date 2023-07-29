@@ -20,7 +20,7 @@ const UploadCard = () => {
       </div>
 
       {/* input fields */}
-      <div className="flex flex-col justify-between">
+      <div className="flex flex-col justify-between gap-y-3">
         <input
           placeholder="What is happening?"
           type="text"
@@ -41,7 +41,7 @@ const UploadCard = () => {
           styles={{
             control: (baseStyles, state) => ({
               ...baseStyles,
-              borderColor: state.isFocused ? "grey" : "red",
+              // borderColor: state.isFocused ? "grey" : "red",
               height: "55px",
             }),
           }}
