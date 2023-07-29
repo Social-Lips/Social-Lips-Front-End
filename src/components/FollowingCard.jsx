@@ -1,15 +1,13 @@
 import React from "react";
 
-const FollowYouCard = () => {
+const FollowingCard = () => {
   return (
     <div className="max-h-full bg-background_light_blue rounded-lg overflow-y-scroll p-6">
-      <h1 className="font-semibold text-[24px] text-white pb-5">
-        Who is to follow you
-      </h1>
+      <h1 className="font-semibold text-[24px] text-white pb-5">Following </h1>
 
-      {[1, 1, 1, 1, 1, 1].map((item, index) => (
+      {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) => (
         <div key={index}>
-          <div className="flex justify-between items-center m-3">
+          <button className="flex justify-between items-center p-3 w-full">
             {/* profile image and name */}
             <div className="flex gap-x-4">
               {/* image */}
@@ -33,13 +31,8 @@ const FollowYouCard = () => {
               </div>
             </div>
 
-            {/* follow button */}
-            <button className="h-[30px] w-[80px] bg-white rounded-full font-bold text-[12px]">
-              Follow
-            </button>
-
             {/* horizontal line */}
-          </div>
+          </button>
           <div className="w-full h-[1px] bg-input_box_gray" />
         </div>
       ))}
@@ -47,4 +40,4 @@ const FollowYouCard = () => {
   );
 };
 
-export default FollowYouCard;
+export default FollowingCard;

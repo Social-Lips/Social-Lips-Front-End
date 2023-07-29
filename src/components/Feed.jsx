@@ -5,12 +5,13 @@ import {
   UploadCard,
   PostCard,
 } from "../components";
+import FollowingCard from "./FollowingCard";
 
 const Feed = () => {
   return (
-    <div className="pt-[60px] px-4 flex justify-center gap-x-2 ">
+    <div className="pt-[60px] px-4 flex justify-center gap-x-2">
       {/* left column */}
-      <div className=" h-[90vh] w-[380px] gap-y-2 flex flex-col relative">
+      <div className="h-[90vh] w-[380px] gap-y-2 flex flex-col relative">
         {/* profile card */}
         <ProfileCard />
 
@@ -25,7 +26,9 @@ const Feed = () => {
       </div>
 
       {/* right column */}
-      <div className="bg-red-400 h-[473px] w-[300px]">right</div>
+      <div className="h-[473px] w-[300px]">
+        <FollowingCard />
+      </div>
     </div>
   );
 };
