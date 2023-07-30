@@ -1,6 +1,9 @@
 import React from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const ProfileCard = () => {
+  const { user } = useAuthContext();
+
   return (
     <div className="relative h-fit bg-background_light_blue rounded-lg">
       {/* cover image */}
@@ -15,12 +18,14 @@ const ProfileCard = () => {
 
       {/* profile image */}
       <div className="absolute h-[100px] w-[100px] top-[126px] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <img
-          src="../src/assets/profile.jpg"
-          height={100}
-          width={100}
-          className="object-cover rounded-full border-[4px] border-background_light_blue"
-        />
+        <div className="h-[100px] w-[100px] flex">
+          <img
+            src={user?.url}
+            height={100}
+            width={100}
+            className="object-cover rounded-full border-[4px] border-background_light_blue"
+          />
+        </div>
       </div>
 
       {/* name and description */}

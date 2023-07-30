@@ -3,7 +3,7 @@ import React from "react";
 const FollowYouCard = () => {
   return (
     <div className="max-h-full bg-background_light_blue rounded-lg overflow-y-scroll p-6">
-      <h1 className="font-semibold text-[24px] text-white pb-5">
+      <h1 className="font-semibold text-[24px] text-white pb-2">
         Who is to follow you
       </h1>
 

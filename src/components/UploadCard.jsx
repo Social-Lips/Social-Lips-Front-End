@@ -47,30 +47,30 @@ const UploadCard = () => {
           }}
         />
         {/*three buttons  */}
-        <div className="flex justify-between items-center">
-          <button className="flex justify-center gap-x-2 items-center h-[55px] w-[180px] border-[1px] rounded-full border-input_box_gray text-[20px] font-normal text-white">
+        <div className="flex justify-between items-center mt-2">
+          <button className="flex justify-center gap-x-2 items-center h-[50px] w-[160px] border-[1px] rounded-full border-input_box_gray text-[16px] font-thin text-white">
             <img
               src="../src/assets/image.svg"
-              height={25}
-              width={25}
+              height={18}
+              width={18}
               className="object-contain"
             />
             Photo
           </button>
-          <button className="flex justify-center gap-x-2 items-center h-[55px] w-[180px] border-[1px] rounded-full border-input_box_gray text-[20px] font-normal text-white">
+          <button className="flex justify-center gap-x-2 items-center h-[50px] w-[160px] border-[1px] rounded-full border-input_box_gray text-[16px] font-thin text-white">
             <img
               src="../src/assets/video.svg"
-              height={25}
-              width={25}
+              height={18}
+              width={18}
               className="object-contain"
             />
             Video
           </button>
-          <button className="flex justify-center gap-x-2 items-center h-[55px] w-[180px] border-[1px] rounded-full border-none text-[20px] font-bold text-black bg-white">
+          <button className="flex justify-center gap-x-2 items-center h-[50px] w-[160px] border-[1px] rounded-full border-none text-[16p18] font-semibold text-black bg-white">
             <img
               src="../src/assets/upload.svg"
-              height={25}
-              width={25}
+              height={18}
+              width={18}
               className="object-contain"
             />
             Upload

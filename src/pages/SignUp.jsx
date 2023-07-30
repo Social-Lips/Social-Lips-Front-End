@@ -2,15 +2,24 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSignUp } from "../hooks/useSignUp";
 
+import "react-activity/dist/Spinner.css";
+import { Spinner } from "react-activity";
+
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [file, setFile] = useState();
+
   const { signup, isLoading, error } = useSignUp();
+
+  function handleFile(e) {
+    setFile(e.target.files[0]);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(email, password);
+    await signup(email, password, file);
   };
   return (
     <main className="flex">
@@ -58,7 +67,11 @@ const SignUp = () => {
           />
           {/* choose file */}
           <div className="flex items-center mb-8">
-            <label className="w-[100px] h-[45px] self-center bg-input_box_gray rounded-md text-sm font-normal flex justify-center items-center text-white cursor-pointer">
+            <label
+              onChange={handleFile}
+              htmlFor="formId"
+              className="w-[100px] h-[45px] self-center bg-input_box_gray rounded-md text-sm font-normal flex justify-center items-center text-white cursor-pointer"
+            >
               <p className="">Choose Picture</p>
               <input name="" type="file" id="formId" hidden />
             </label>
@@ -68,8 +81,11 @@ const SignUp = () => {
           </div>
 
           {/* register button */}
-          <button className="bg-button_blue text-white text-[16px] font-semibold h-[45px] rounded-md mb-8">
-            Register
+          <button
+            disabled={isLoading}
+            className="bg-button_blue text-white text-[16px] font-semibold h-[45px] rounded-md mb-8 flex justify-center items-center"
+          >
+            {isLoading ? <Spinner size={13} /> : <>Register</>}
           </button>
 
           {/* -----OR----- */}
@@ -90,14 +106,13 @@ const SignUp = () => {
             <p>Sign Up with Google</p>
           </button>
 
-          {/* login link */}
+          {/* signup link */}
           <p className="text-white font-light text-[16px] self-center">
             Already you have an account?
             <Link
               to={"/login"}
               className="font-light text-[16px] text-[#71A0F7] cursor-pointer"
             >
-              {" "}
               Login Here
             </Link>
           </p>

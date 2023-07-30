@@ -9,6 +9,9 @@ export const useVideoUpload = () => {
     setIsLoading(true);
     const frmData = new FormData();
     frmData.append("file", files);
+    frmData.append("email", "email");
+    frmData.append("email", "email");
+
     axios({
       method: "POST",
       url: "http://localhost:8800/api/video/upload",

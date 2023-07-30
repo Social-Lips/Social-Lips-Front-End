@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useLogIn } from "../hooks/useLogIn";
+
+import "react-activity/dist/Spinner.css";
+import { Spinner } from "react-activity";
 
 function Login(props) {
   const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, isLoading, error } = useLogIn();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await login(email, password);
+  };
 
   return (
     <main className="flex">
@@ -18,12 +30,13 @@ function Login(props) {
         <h1 className="text-white text-[24px] font-medium mb-10">
           Hey, Hello 👋
         </h1>
-        <form action="POST" onClick={""} className="flex flex-col">
+        <form action="POST" onSubmit={handleSubmit} className="flex flex-col">
           {/* email row */}
           <input
             type="email"
             placeholder="Enter Your Email"
             className="text_input"
+            onChange={(e) => setEmail(e.target.value)}
           />
 
           {/* password email */}
@@ -31,11 +44,12 @@ function Login(props) {
             type="password"
             placeholder="Enter Your Password"
             className="text_input"
+            onChange={(e) => setPassword(e.target.value)}
           />
 
           {/* register button */}
-          <button className="bg-button_blue text-white text-[16px] font-semibold h-[45px] rounded-md mb-8">
-            Log In
+          <button className="bg-button_blue text-white text-[16px] font-semibold h-[45px] rounded-md mb-8 flex justify-center items-center">
+            {isLoading ? <Spinner size={13} /> : <>Log In</>}
           </button>
 
           {/* -----OR----- */}
@@ -64,7 +78,6 @@ function Login(props) {
               to={"/signup"}
               className="font-light text-[16px] text-[#71A0F7] cursor-pointer"
             >
-              {" "}
               Register Here
             </Link>
           </p>

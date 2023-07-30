@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+import { useAuthContext } from "./useAuthContext";
 
 export const useSignUp = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
+  const { dispatch } = useAuthContext();
 
-  const signup = async (email, password) => {
+  const signup = async (email, password, file) => {
     setIsLoading(true);
     setError(null);
 
@@ -29,20 +31,31 @@ export const useSignUp = () => {
     // }
 
     // axios create
+    const frmData = new FormData();
+    frmData.append("file", file);
+    frmData.append("password", password);
+    frmData.append("email", email);
+
     axios({
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "multipart/form-data" },
       url: "http://localhost:8800/api/auth/register",
-      data: JSON.stringify({ email, password }),
+      data: frmData,
     })
       .then((res) => {
         setIsLoading(false);
-        alert("ok");
+        const json = res.data;
+
+        //save the user to local storage
+        localStorage.setItem("user", JSON.stringify(json));
+        //update the auth context
+        dispatch({ type: "LOGIN", payload: json });
       })
       .catch((err) => {
         setIsLoading(false);
-        alert("error");
+        // alert("error");
         setError(err);
+        console.log(err);
       });
   };
 

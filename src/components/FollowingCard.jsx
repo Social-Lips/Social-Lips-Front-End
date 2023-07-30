@@ -3,7 +3,7 @@ import React from "react";
 const FollowingCard = () => {
   return (
     <div className="max-h-full bg-background_light_blue rounded-lg overflow-y-scroll p-6">
-      <h1 className="font-semibold text-[24px] text-white pb-5">Following </h1>
+      <h1 className="font-semibold text-[24px] text-white pb-2">Following</h1>
 
       {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) => (
         <div key={index}>
