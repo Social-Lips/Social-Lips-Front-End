@@ -32,7 +32,7 @@ const PostCard = () => {
         {/* post image */}
         <div className="h-[300px] w-full flex">
           <img
-            src="../src/assets/postImage.jpg"
+            src="https://social-lips.s3.amazonaws.com/1878012270386a89fe3bb0043fead78a29b65fcc079e744ce8a5c510834d7e12"
             // height={300}
             // width={522}
             className="object-cover rounded-lg"
