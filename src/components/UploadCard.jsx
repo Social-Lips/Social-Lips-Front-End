@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Select from "react-select";
 import { useCreatePost } from "../hooks/useCreatePost";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Spinner } from "react-activity";
+import "react-activity/dist/Spinner.css";
 
 const videoType = [
   { value: "Sign", label: "Sign Language video" },
@@ -96,13 +98,19 @@ const UploadCard = () => {
             onClick={handleUpload}
             className="flex justify-center gap-x-2 items-center h-[50px] w-[160px] border-[1px] rounded-full border-none text-[16p18] font-semibold text-black bg-white"
           >
-            <img
-              src="../src/assets/upload.svg"
-              height={18}
-              width={18}
-              className="object-contain"
-            />
-            Upload
+            {isLoading ? (
+              <Spinner size={13} />
+            ) : (
+              <>
+                <img
+                  src="../src/assets/upload.svg"
+                  height={18}
+                  width={18}
+                  className="object-contain"
+                />
+                Upload
+              </>
+            )}
           </button>
         </div>
       </div>

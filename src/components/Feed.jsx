@@ -6,8 +6,21 @@ import {
   PostCard,
 } from "../components";
 import FollowingCard from "./FollowingCard";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useGetPosts } from "../hooks/useGetPosts";
+import { useEffect } from "react";
 
 const Feed = () => {
+  const { user } = useAuthContext();
+  const { getPosts, isLoading, error, posts } = useGetPosts();
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  const getAllPosts = async () => {
+    await getPosts(user.userId);
+  };
   return (
     <div className="pt-[60px] px-4 flex justify-center gap-x-2">
       {/* left column */}
@@ -22,7 +35,10 @@ const Feed = () => {
       {/* middle column */}
       <div className="h-[473px] w-[680px] flex flex-col gap-y-2">
         <UploadCard />
-        <PostCard />
+        {posts &&
+          posts.map((post, index) => (
+            <PostCard post={post} user={user} key={index} />
+          ))}
       </div>
 
       {/* right column */}

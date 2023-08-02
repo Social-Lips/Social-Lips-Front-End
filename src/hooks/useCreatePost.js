@@ -22,12 +22,14 @@ export const useCreatePost = () => {
     })
       .then((res) => {
         setIsLoading(false);
+        alert("uploaded");
         console.log(res);
       })
       .catch((err) => {
         setIsLoading(false);
         setError(err);
         console.log(err);
+        alert("Error");
       });
   };
 

@@ -25,21 +25,21 @@ function Home(props) {
     await videoUpload(files);
   };
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8800/list")
-      .then(function (response) {
-        // handle success
-        console.log(response);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .finally(function () {
-        // always executed
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8800/list")
+  //     .then(function (response) {
+  //       // handle success
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //     })
+  //     .finally(function () {
+  //       // always executed
+  //     });
+  // }, []);
 
   const url =
     "https://social-lips.s3.amazonaws.com/015c57e7e9d5d24d9e14e79deb05a429e53bf50666a91e18618ab9af7f72959d";

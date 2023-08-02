@@ -1,38 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../hooks/useAuthContext";
+import { useGetPosts } from "../hooks/useGetPosts";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
-const PostCard = () => {
+const PostCard = ({ post, user }) => {
+  console.log(user);
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg">
       {/* image div */}
-      <div className="h-[55px] w-[55px] mr-4">
+      <div className="h-[55px] w-[55px] mr-4 flex justify-center items-er ">
         <img
-          src="../src/assets/profile.jpg"
+          src={user.url}
           height={55}
           width={55}
-          className="object-cover rounded-full"
+          className="rounded-full object-cover"
         />
       </div>
 
       <div className="flex flex-col justify-between w-full gap-y-2">
         {/* name and update date */}
         <div className="leading-6">
-          <h1 className="font-bold text-[24px] text-white">K.L.L Silva</h1>
+          <h1 className="font-bold text-[24px] text-white">{post.user_id}</h1>
           <p className="text-font_light_gray text-[12px] font-thin">
-            Few minute ago
+            {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
           </p>
         </div>
 
         {/*description  */}
         <div className="flex">
-          <p className="text-[16px] text-white leading-5">
-            Source Sans Pro is one of the best
-          </p>
+          <p className="text-[16px] text-white leading-5">{post.description}</p>
         </div>
 
         {/* post image */}
         <div className="h-[300px] w-full flex">
           <img
-            src="https://social-lips.s3.amazonaws.com/1878012270386a89fe3bb0043fead78a29b65fcc079e744ce8a5c510834d7e12"
+            src={post.img_url}
             // height={300}
             // width={522}
             className="object-cover rounded-lg"
