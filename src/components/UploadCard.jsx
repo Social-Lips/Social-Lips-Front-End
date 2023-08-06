@@ -13,16 +13,19 @@ const videoType = [
 const UploadCard = () => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
+  const [postType, setPostType] = useState("");
 
   const { user } = useAuthContext();
   const { createPost, isLoading, error } = useCreatePost();
 
   function handleFile(e) {
     setFile(e.target.files[0]);
+    const _fileType = e.target.files[0].type;
+    setPostType(_fileType.split("/")[0]);
   }
 
   const handleUpload = async () => {
-    await createPost(user.userId, description, file);
+    await createPost(user.userId, description, file, postType);
   };
 
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogOut } from "../hooks/useLogOut";
 import * as Dialog from "@radix-ui/react-dialog";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const { user } = useAuthContext();
@@ -14,7 +15,9 @@ const NavBar = () => {
     <nav className="bg-background_dark_blue h-[8vh] flex justify-between items-center backdrop-blur-md px-4 fixed w-full z-50">
       {/* image and searchbox */}
       <div className="flex justify-center items-center gap-x-1">
-        <img src="../src/assets/logo.png" height={50} width={50} />
+        <Link to={"/home"}>
+          <img src="../src/assets/logo.png" height={50} width={50} />
+        </Link>
         <input
           type="text"
           className="h-[40px] w-[250px] rounded-full pl-5 text-[12px] font-extralight bg-input_box_gray border-none text-white"
@@ -70,12 +73,15 @@ const NavBar = () => {
               </div>
             </div>
             {/* ----- */}
-            <div className="flex justify-center items-center px-5 py-2">
+            <Link
+              to="/profile"
+              className="flex justify-center items-center px-5 py-2"
+            >
               <div className="h-[55px] w-[55px] flex mr-4" />
               <button className="text-[12px] font-normal text-white border-[0.3px] border-white w-full flex justify-center items-center py-2 rounded-lg">
                 Edit your Account
               </button>
-            </div>
+            </Link>
 
             {/* ------ */}
             <div className="w-full bg-font_light_gray h-[0.3px]" />
