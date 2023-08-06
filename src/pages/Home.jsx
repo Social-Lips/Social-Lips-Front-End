@@ -47,13 +47,6 @@ function Home(props) {
   return (
     <main className="">
       <Feed />
-      {/* <img
-        src="https://social-lips.s3.ap-south-1.amazonaws.com/5714ED8D-F7D2-40E3-A7E1-0DBB411C119F.JPG"
-        width={50}
-      /> */}
-
-      {/* <ReactPlayer controls={true} url={url} /> */}
-      {/* <ReactPlayer controls={true} url={url} /> */}
     </main>
   );
 }

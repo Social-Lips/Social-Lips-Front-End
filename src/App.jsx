@@ -15,7 +15,7 @@ function App() {
       {user && <NavBar />}
       <Routes>
         <Route
-          path="/home"
+          path="/"
           element={user ? <Home /> : <Navigate to={"/login"} />}
         />
         <Route
@@ -24,11 +24,11 @@ function App() {
         />
         <Route
           path="/login"
-          element={!user ? <Login /> : <Navigate to={"/home"} />}
+          element={!user ? <Login /> : <Navigate to={"/"} />}
         />
         <Route
           path="/signup"
-          element={!user ? <SignUp /> : <Navigate to={"/home"} />}
+          element={!user ? <SignUp /> : <Navigate to={"/"} />}
         />
       </Routes>
     </div>
