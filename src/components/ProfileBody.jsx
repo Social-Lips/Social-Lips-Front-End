@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import FollowYouCard from "./FollowYouCard";
+import FileUpload from "./FileUpload";
+import UploadCard from "./UploadCard";
+import PostCard from "./PostCard";
 
-const ProfileBody = () => {
+const ProfileBody = ({ posts, user }) => {
   const [isActive, setIsActive] = useState("Posts");
   return (
     <main>
       {/* navigation */}
-      <section className="flex justify-left items-center gap-x-8 my-5">
+      <section className="flex justify-left items-center gap-x-8 my-5 ">
         {["Posts", "Photos", "Videos", "About"].map((item) => (
           <button
+            key={item}
             className={
               isActive !== item
                 ? "text-[16px] text-[#9A9A9A] cursor-pointer"
@@ -19,7 +24,26 @@ const ProfileBody = () => {
           </button>
         ))}
       </section>
+
+      {/* horizontal line */}
       <div className="w-[260px] h-[1px] bg-input_box_gray" />
+
+      {/* body content cards */}
+      <section className="w-full h-fit flex mt-6 justify-between gap-x-4">
+        {/* left side (Followers) cards */}
+        <div className="">
+          <FollowYouCard cardTitle={"Followers"} />
+        </div>
+
+        {/* right side cards */}
+        <div className="w-full">
+          <UploadCard />
+          {posts &&
+            posts.map((post, index) => (
+              <PostCard post={post} user={user} key={index} />
+            ))}
+        </div>
+      </section>
     </main>
   );
 };

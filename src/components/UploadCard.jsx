@@ -41,7 +41,7 @@ const UploadCard = () => {
       </div>
 
       {/* input fields */}
-      <div className="flex flex-col justify-between gap-y-3">
+      <div className="flex flex-col justify-between">
         <input
           onChange={(e) => setDescription(e.target.value)}
           placeholder="What is happening?"

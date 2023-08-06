@@ -1,13 +1,11 @@
 import React from "react";
 
-const FollowYouCard = () => {
+const FollowYouCard = ({ cardTitle }) => {
   return (
-    <div className="max-h-full bg-background_light_blue rounded-lg overflow-y-scroll p-6">
-      <h1 className="font-semibold text-[24px] text-white pb-2">
-        Who is to follow you
-      </h1>
+    <div className="max-h-[90vh] bg-background_light_blue rounded-lg overflow-y-scroll p-6 w-[380px] sticky top-[8vh]">
+      <h1 className="font-semibold text-[24px] text-white pb-2">{cardTitle}</h1>
 
-      {[1, 1, 1, 1, 1, 1].map((item, index) => (
+      {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) => (
         <div key={index}>
           <div className="flex justify-between items-center m-3">
             {/* profile image and name */}

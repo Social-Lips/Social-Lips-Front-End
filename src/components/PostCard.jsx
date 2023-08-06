@@ -7,36 +7,40 @@ import ReactPlayer from "react-player";
 
 const PostCard = ({ post, user }) => {
   return (
-    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg">
+    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
-      <div className="h-[55px] w-[55px]  mr-4 flex justify-center items-er ">
+      <div className="h-[55px] w-[55px]">
         <img
-          src={user.url}
+          src={user?.url}
           height={55}
           width={55}
-          className="rounded-full object-cover"
+          className="object-cover rounded-full "
         />
       </div>
 
-      <div className=" flex flex-col justify-between w-full gap-y-2">
+      <div className=" flex flex-col justify-between w-full gap-y-2 ml-4">
         {/* name and update date */}
         <div className="leading-6">
-          <h1 className="font-bold text-[24px] text-white">{post.user_id}</h1>
+          <h1 className="font-bold text-[24px] text-white">{post?.user_id}</h1>
           <p className="text-font_light_gray text-[12px] font-thin">
-            {formatDistanceToNow(new Date(post.createdAt), { addSuffix: true })}
+            {formatDistanceToNow(new Date(post?.createdAt), {
+              addSuffix: true,
+            })}
           </p>
         </div>
 
         {/*description  */}
         <div className="flex">
-          <p className="text-[16px] text-white leading-5">{post.description}</p>
+          <p className="text-[16px] text-white leading-5">
+            {post?.description}
+          </p>
         </div>
 
         {/* post image or video*/}
         <div className="h-[300px]  flex">
-          {post.postType === "image" ? (
+          {post?.postType === "image" ? (
             <img
-              src={post.img_url}
+              src={post?.img_url}
               // height={300}
               // width={522}
               className="object-cover rounded-lg"
@@ -44,7 +48,7 @@ const PostCard = ({ post, user }) => {
           ) : (
             <ReactPlayer
               controls={true}
-              url={post.img_url}
+              url={post?.img_url}
               className="react-player"
               width="100%"
               height="100%"

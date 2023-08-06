@@ -16,7 +16,7 @@ const Feed = () => {
 
   useEffect(() => {
     getAllPosts();
-  }, []);
+  }, [posts]);
 
   const getAllPosts = async () => {
     await getPosts(user.userId);
@@ -29,11 +29,11 @@ const Feed = () => {
         <ProfileCard />
 
         {/* Who is to follow you card */}
-        <FollowYouCard />
+        <FollowYouCard cardTitle={"Who is to follow you"} />
       </div>
 
       {/* middle column */}
-      <div className="h-[473px] w-[680px] flex flex-col gap-y-2">
+      <div className="h-[473px] w-[680px] flex flex-col">
         <UploadCard />
         {posts &&
           posts.map((post, index) => (

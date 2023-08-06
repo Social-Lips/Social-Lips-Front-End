@@ -1,8 +1,7 @@
 import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const ProfileHeader = () => {
-  const { user } = useAuthContext();
+const ProfileHeader = ({ user }) => {
   return (
     <div className="w-full">
       {/* cover image */}
@@ -43,7 +42,7 @@ const ProfileHeader = () => {
       </div>
 
       {/* profile image */}
-      <div className="h-[200px] w-[200px] flex absolute top-2/3 transform -translate-y-[70%] border-[4px] border-background_dark_blue rounded-full">
+      <div className="h-[200px] w-[200px] flex absolute top-2/3 transform -translate-y-[75%] border-[4px] border-background_dark_blue rounded-full">
         <img
           className="object-cover rounded-full"
           src={user.url}
