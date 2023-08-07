@@ -3,6 +3,7 @@ import FollowYouCard from "./FollowYouCard";
 import FileUpload from "./FileUpload";
 import UploadCard from "./UploadCard";
 import PostCard from "./PostCard";
+import ProfileAbout from "./ProfileAbout";
 
 const ProfileBody = ({ posts, user }) => {
   const [isActive, setIsActive] = useState("Posts");
@@ -32,6 +33,7 @@ const ProfileBody = ({ posts, user }) => {
       <section className="w-full h-fit flex mt-6 justify-between gap-x-4">
         {/* left side (Followers) cards */}
         <div className="">
+          <ProfileAbout />
           <FollowYouCard cardTitle={"Followers"} />
         </div>
 
