@@ -1,5 +1,6 @@
 import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { Link } from "react-router-dom";
 
 const ProfileCard = () => {
   const { user } = useAuthContext();
@@ -55,9 +56,11 @@ const ProfileCard = () => {
       </div>
 
       {/* my profile button */}
-      <p className="text-center my-5 font-normal text-[20px] text-button_blue cursor-pointer">
-        My Profile
-      </p>
+      <Link to={"/profile"}>
+        <p className="text-center my-5 font-normal text-[20px] text-button_blue cursor-pointer">
+          My Profile
+        </p>
+      </Link>
     </div>
   );
 };

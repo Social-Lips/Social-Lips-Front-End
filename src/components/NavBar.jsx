@@ -15,7 +15,7 @@ const NavBar = () => {
     <nav className="bg-background_dark_blue h-[8vh] flex justify-between items-center backdrop-blur-md px-4 fixed w-full z-50">
       {/* image and searchbox */}
       <div className="flex justify-center items-center gap-x-1">
-        <Link to={"/home"}>
+        <Link to={"/"}>
           <img src="../src/assets/logo.png" height={50} width={50} />
         </Link>
         <input
