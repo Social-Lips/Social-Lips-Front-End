@@ -11,6 +11,19 @@ export default {
         font_light_gray: "#9A9A9A",
         input_box_gray: "#33434E",
       },
+      keyframes: {
+        wiggle: {
+          "0%": {
+            opacity: "0",
+          },
+          "100%": {
+            opacity: "1",
+          },
+        },
+      },
+      animation: {
+        wiggle: "wiggle 300ms ease-in-out",
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],

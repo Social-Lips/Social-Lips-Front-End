@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import FollowYouCard from "./FollowYouCard";
-import FileUpload from "./FileUpload";
 import UploadCard from "./UploadCard";
 import PostCard from "./PostCard";
 import ProfileAbout from "./ProfileAbout";
