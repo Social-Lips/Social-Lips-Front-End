@@ -3,10 +3,26 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useLogOut } from "../hooks/useLogOut";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from "react-router-dom";
+import { useGetUser } from "../hooks/useGetUser";
+import { useEffect } from "react";
 
 const NavBar = () => {
-  const { user } = useAuthContext();
   const { logout } = useLogOut();
+  const { user: adminUser } = useAuthContext();
+  const {
+    getUser,
+    user,
+    isLoading: userIsLoading,
+    error: userError,
+  } = useGetUser();
+
+  useEffect(() => {
+    _getUser();
+  }, []);
+
+  const _getUser = async () => {
+    await getUser(adminUser?._id);
+  };
 
   const handleClick = () => {
     logout();
@@ -43,7 +59,7 @@ const NavBar = () => {
 
             <div className="h-[45px] w-[45px] flex cursor-pointer">
               <img
-                src={user?.url}
+                src={user[0]?.profilePicture}
                 height={45}
                 width={45}
                 className="rounded-full ml-[2px] object-cover border-2 border-button_blue"
@@ -57,7 +73,7 @@ const NavBar = () => {
             <div className="flex items-center px-5 pt-5">
               <div className="h-[55px] w-[55px] flex mr-4">
                 <img
-                  src={user?.url}
+                  src={user[0]?.profilePicture}
                   height={55}
                   width={55}
                   className="object-cover rounded-full border-2 border-button_blue"
@@ -65,16 +81,16 @@ const NavBar = () => {
               </div>
               <div className="flex flex-col leading-4">
                 <span className="text-[16px] font-normal text-white">
-                  K.L.L silva
+                  {user[0]?.first_name} <span>{user[0]?.last_name}</span>
                 </span>
                 <span className="text-[12px] font-thin text-white">
-                  {user?.email}
+                  {user[0]?.email}
                 </span>
               </div>
             </div>
             {/* ----- */}
             <Link
-              to="/profile"
+              to={`/profile/${user[0]?._id}`}
               className="flex justify-center items-center px-5 py-2"
             >
               <div className="h-[55px] w-[55px] flex mr-4" />

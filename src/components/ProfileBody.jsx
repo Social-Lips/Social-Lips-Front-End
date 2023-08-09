@@ -38,7 +38,7 @@ const ProfileBody = ({ posts, user }) => {
 
         {/* right side cards */}
         <div className="w-full">
-          <UploadCard />
+          <UploadCard user={user} />
           {posts &&
             posts.map((post, index) => (
               <PostCard post={post} user={user} key={index} />

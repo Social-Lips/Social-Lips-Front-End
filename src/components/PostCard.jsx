@@ -9,9 +9,9 @@ const PostCard = ({ post, user }) => {
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
-      <div className="h-[55px] w-[55px]">
+      <div className="h-[55px] w-[55px] flex">
         <img
-          src={user?.url}
+          src={user?.profilePicture}
           height={55}
           width={55}
           className="object-cover rounded-full "
@@ -21,7 +21,9 @@ const PostCard = ({ post, user }) => {
       <div className=" flex flex-col justify-between w-full gap-y-2 ml-4">
         {/* name and update date */}
         <div className="leading-6">
-          <h1 className="font-bold text-[24px] text-white">{post?.user_id}</h1>
+          <h1 className="font-bold text-[24px] text-white">
+            {user?.first_name} <span>{user?.last_name}</span>
+          </h1>
           <p className="text-font_light_gray text-[12px] font-thin">
             {formatDistanceToNow(new Date(post?.createdAt), {
               addSuffix: true,
@@ -67,14 +69,14 @@ const PostCard = ({ post, user }) => {
               className="object-contain bg-button_blue rounded-full p-[2px]"
             />
             <span className="text-[14px] font-light text-font_light_gray">
-              34.1k
+              {post?.likes.length}
             </span>
           </div>
 
           {/* comment view */}
           <div>
             <span className="text-[14px] font-light text-font_light_gray">
-              100 comments
+              {post?.comments.length} comments
             </span>
           </div>
         </div>

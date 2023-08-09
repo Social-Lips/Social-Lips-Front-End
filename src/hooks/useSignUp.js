@@ -7,7 +7,7 @@ export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
 
-  const signup = async (email, password, file) => {
+  const signup = async (email, password, file, first_name, last_name) => {
     setIsLoading(true);
     setError(null);
 
@@ -35,6 +35,8 @@ export const useSignUp = () => {
     frmData.append("file", file);
     frmData.append("password", password);
     frmData.append("email", email);
+    frmData.append("first_name", first_name);
+    frmData.append("last_name", last_name);
 
     axios({
       method: "POST",

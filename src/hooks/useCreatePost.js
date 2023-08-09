@@ -14,6 +14,7 @@ export const useCreatePost = () => {
     frmData.append("user_id", user_id);
     frmData.append("description", description);
     frmData.append("postType", postType);
+    console.log(frmData.getAll);
 
     axios({
       method: "POST",

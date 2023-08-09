@@ -8,6 +8,8 @@ import { Spinner } from "react-activity";
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [file, setFile] = useState();
 
   const { signup, isLoading, error } = useSignUp();
@@ -19,7 +21,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await signup(email, password, file);
+    await signup(email, password, file, firstName, lastName);
   };
   return (
     <main className="flex">
@@ -42,11 +44,13 @@ const SignUp = () => {
               type="text"
               placeholder="First Name"
               className="text_input w-[200px]"
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <input
               type="text"
               placeholder="Last Name"
               className="text_input w-[200px]"
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
 

@@ -10,12 +10,11 @@ const videoType = [
   { value: "Voice", label: "Voice Language video" },
 ];
 
-const UploadCard = () => {
+const UploadCard = ({ user }) => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [postType, setPostType] = useState("");
 
-  const { user } = useAuthContext();
   const { createPost, isLoading, error } = useCreatePost();
 
   function handleFile(e) {
@@ -25,15 +24,15 @@ const UploadCard = () => {
   }
 
   const handleUpload = async () => {
-    await createPost(user.userId, description, file, postType);
+    await createPost(user._id, description, file, postType);
   };
 
   return (
     <div className="flex h-[245px] bg-background_light_blue px-5 py-4 rounded-lg justify-between">
       {/* image div */}
-      <div className="h-[55px] w-[55px]">
+      <div className="h-[55px] w-[55px] flex">
         <img
-          src="../src/assets/profile.jpg"
+          src={user?.profilePicture}
           height={55}
           width={55}
           className="object-cover rounded-full"
@@ -46,7 +45,7 @@ const UploadCard = () => {
           onChange={(e) => setDescription(e.target.value)}
           placeholder="What is happening?"
           type="text"
-          className="h-[55px] w-[560px] justify-center items-center rounded-lg bg-input_box_gray text-white text-[20px] font-extralight border-none"
+          className="h-[55px] w-[560px] justify-center items-center rounded-lg bg-input_box_gray text-white text-[20px] font-extralight border-none mb-3"
         />
 
         <Select

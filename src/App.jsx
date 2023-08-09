@@ -7,9 +7,13 @@ import { NavBar } from "./components";
 import Profile from "./pages/Profile";
 import Test from "./pages/Test";
 import { useAuthContext } from "./hooks/useAuthContext";
+import { useGetUser } from "./hooks/useGetUser";
+import { useEffect } from "react";
 
 function App() {
+  //local storage user
   const { user } = useAuthContext();
+
   return (
     <div>
       {user && <NavBar />}
@@ -19,7 +23,7 @@ function App() {
           element={user ? <Home /> : <Navigate to={"/login"} />}
         />
         <Route
-          path="/profile"
+          path="/profile/:id"
           element={user ? <Profile /> : <Navigate to={"/login"} />}
         />
         <Route
