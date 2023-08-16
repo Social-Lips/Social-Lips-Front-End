@@ -1,11 +1,28 @@
-import React, { useEffect } from "react";
-import { AuthContext } from "../context/AuthContext";
-import { useAuthContext } from "../hooks/useAuthContext";
-import { useGetPosts } from "../hooks/useGetPosts";
+import React, { useEffect, useState } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import ReactPlayer from "react-player";
+import { useLikeDislike } from "../hooks/useLikeDislike";
+
+import "react-activity/dist/Spinner.css";
+import { Spinner } from "react-activity";
 
 const PostCard = ({ post, user }) => {
+  const [likes, setLikes] = useState(post?.likes.length);
+  const { likeDislike, likeValue, isLoading, error } = useLikeDislike();
+
+  useEffect(() => {
+    // Update the likes state when the likeValue changes
+    if (likeValue !== null && likeValue === "liked") {
+      setLikes((prev) => prev + 1); // Update the likes count with the new value
+    } else if (likeValue !== null && likeValue === "disliked") {
+      setLikes((prev) => prev - 1); // Update the dislikes count with the new value
+    }
+  }, [likeValue]);
+
+  const handleLike = async () => {
+    await likeDislike(post?._id, user._id);
+  };
+
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
@@ -69,7 +86,7 @@ const PostCard = ({ post, user }) => {
               className="object-contain bg-button_blue rounded-full p-[2px]"
             />
             <span className="text-[14px] font-light text-font_light_gray">
-              {post?.likes.length}
+              {likes}
             </span>
           </div>
 
@@ -84,14 +101,18 @@ const PostCard = ({ post, user }) => {
         {/* like and comment button */}
         <div className="flex justify-between">
           {/* like */}
-          <button className="flex justify-center gap-x-2 items-center h-[50px] w-[270px] text-[16px] bg-input_box_gray text-white rounded-lg">
+          <button
+            disabled={isLoading}
+            onClick={handleLike}
+            className="flex justify-center gap-x-2 items-center h-[50px] w-[270px] text-[16px] bg-input_box_gray text-white rounded-lg"
+          >
             <img
               src="../src/assets/like.svg"
               height={25}
               width={25}
               className="object-contain"
             />
-            Like
+            {isLoading ? <Spinner size={13} /> : <>Like</>}
           </button>
 
           {/* comment */}

@@ -32,7 +32,7 @@ const ProfileBody = ({ posts, user }) => {
       <section className="w-full h-fit flex mt-6 justify-between gap-x-4">
         {/* left side (Followers) cards */}
         <div className="">
-          <ProfileAbout />
+          <ProfileAbout user={user} />
           <FollowYouCard cardTitle={"Followers"} />
         </div>
 

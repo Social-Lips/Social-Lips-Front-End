@@ -1,25 +1,30 @@
 import React from "react";
 
-const ProfileAbout = () => {
+const ProfileAbout = ({ user }) => {
   return (
     <div className="bg-background_light_blue rounded-lg p-8 w-[380px] gap-y-4 flex flex-col mb-2">
       {/*  */}
       <div className="flex gap-x-2 text-font_light_gray font-thin text-[14px]">
         <img src="../src/assets/cap.svg" height={20} width={20} />
-        <span>Studying at Lorem Ipsum </span>
+        <span>Studying at {user?.studying_at} </span>
       </div>
       <div className="flex gap-x-2 text-font_light_gray font-thin text-[14px]">
         <img src="../src/assets/location.svg" height={20} width={20} />
-        <span>Lives in Lorem Ipsum Lorem Ipsum text </span>
+        <span>Lives in {user?.lives_in}</span>
       </div>
       <div className="flex gap-x-2 text-font_light_gray font-thin text-[14px]">
         <img src="../src/assets/work.svg" height={20} width={20} />
-        <span>Work at Lorem Ipsum Lorem Ipsum text </span>
+        <span>Work at {user?.work_at} </span>
       </div>
-      <div className="flex gap-x-2 text-font_light_gray font-thin text-[14px]">
-        <img src="../src/assets/heart.svg" height={20} width={20} />
-        <span>In a Relationship</span>
-      </div>
+
+      {user?.in_relationship && (
+        <div className="flex gap-x-2 text-font_light_gray font-thin text-[14px]">
+          <img src="../src/assets/heart.svg" height={20} width={20} />
+
+          <span>In a Relationship</span>
+        </div>
+      )}
+
       <div className="flex gap-x-2 text-font_light_gray font-thin text-[14px]">
         <img src="../src/assets/call.svg" height={20} width={20} />
         <span>at 0771234567</span>

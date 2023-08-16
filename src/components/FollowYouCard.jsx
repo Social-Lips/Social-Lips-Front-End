@@ -19,6 +19,7 @@ const FollowYouCard = ({ cardTitle }) => {
     <div className=" bg-background_light_blue rounded-lg p-6 w-[380px] sticky top-[8vh]">
       <h1 className="font-semibold text-[24px] text-white pb-2">{cardTitle}</h1>
       {!isLoading &&
+        users &&
         users.map((user, index) => (
           <Link key={index} to={`/profile/${user._id}`}>
             <div className="flex justify-between items-center m-3">

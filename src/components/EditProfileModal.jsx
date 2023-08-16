@@ -4,16 +4,19 @@ import { useUpdateUser } from "../hooks/useUpdateUser";
 import { useParams } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-const EditProfileModal = ({ user }) => {
-  const [firstName, setFirstName] = useState(user?.first_name);
-  const [lastName, setLastName] = useState(user?.last_name);
-  const [bio, setBio] = useState(user?.bio);
-  const [studying, setStudying] = useState(user?.studying_at);
-  const [lives, setLives] = useState(user?.lives_in);
-  const [work, setWork] = useState(user?.work_at);
-  const [relationship, setRelationship] = useState(user?.in_relationship);
-  const [profilePic, setProfilePic] = useState(user?.profilePicture);
-  const [coverPic, setCoverPic] = useState(user?.coverPicture);
+import "react-activity/dist/Spinner.css";
+import { Spinner } from "react-activity";
+
+const EditProfileModal = ({ user, onClose }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [bio, setBio] = useState("");
+  const [studying, setStudying] = useState("");
+  const [lives, setLives] = useState("");
+  const [work, setWork] = useState("");
+  const [relationship, setRelationship] = useState("");
+  const [profilePic, setProfilePic] = useState();
+  const [coverPic, setCoverPic] = useState();
 
   const { user: adminUser } = useAuthContext();
   const { updateUser, isLoading, error } = useUpdateUser();
@@ -65,17 +68,17 @@ const EditProfileModal = ({ user }) => {
       <fieldset className="flex w-full justify-between items-center">
         <input
           type="text"
-          placeholder="First Name"
+          placeholder={user?.first_name}
           className="edit-form-input  w-[200px]"
           onChange={(e) => setFirstName(e.target.value)}
-          value={firstName}
+          // value={user?.first_name}
         />
         <input
           type="text"
-          placeholder="Last Name"
+          placeholder={user?.last_name}
           className="edit-form-input  w-[200px]"
           onChange={(e) => setLastName(e.target.value)}
-          value={lastName}
+          // value={user?.last_name}
         />
       </fieldset>
 
@@ -83,10 +86,10 @@ const EditProfileModal = ({ user }) => {
       <fieldset className="w-full">
         <input
           type="text"
-          placeholder="Bio"
+          placeholder={user?.bio}
           className="edit-form-input  w-full"
           onChange={(e) => setBio(e.target.value)}
-          value={bio}
+          // value={user?.bio}
         />
       </fieldset>
 
@@ -94,10 +97,10 @@ const EditProfileModal = ({ user }) => {
       <fieldset className="w-full">
         <input
           type="text"
-          placeholder="Studying at"
+          placeholder={user?.studying_at}
           className="edit-form-input  w-full"
           onChange={(e) => setStudying(e.target.value)}
-          value={studying}
+          // value={user?.studying_at}
         />
       </fieldset>
 
@@ -105,10 +108,10 @@ const EditProfileModal = ({ user }) => {
       <fieldset className="w-full">
         <input
           type="text"
-          placeholder="Lives in"
+          placeholder={user?.lives_in}
           className="edit-form-input  w-full"
           onChange={(e) => setLives(e.target.value)}
-          value={lives}
+          // value={user?.lives_in}
         />
       </fieldset>
 
@@ -116,10 +119,10 @@ const EditProfileModal = ({ user }) => {
       <fieldset className="w-full">
         <input
           type="text"
-          placeholder="Work at"
+          placeholder={user?.work_at}
           className="edit-form-input  w-full"
           onChange={(e) => setWork(e.target.value)}
-          value={work}
+          // value={user?.work_at}
         />
       </fieldset>
 
@@ -146,7 +149,7 @@ const EditProfileModal = ({ user }) => {
           <label className="w-[100px] h-[30px] self-center bg-font_dark_gray text-sm font-normal flex justify-center items-center text-white cursor-pointer">
             <p className="text-black text-[12px]">Choose Picture</p>
             <input
-              name="profilePic"
+              name="profilePicture"
               type="file"
               hidden
               onChange={(e) => handleProfilePictureFile(e)}
@@ -164,7 +167,7 @@ const EditProfileModal = ({ user }) => {
           <label className="w-[100px] h-[30px] self-center bg-font_dark_gray text-sm font-normal flex justify-center items-center text-white cursor-pointer">
             <p className="text-black text-[12px]">Choose Picture</p>
             <input
-              name="coverPic"
+              name="coverPicture"
               type="file"
               hidden
               onChange={(e) => handleCoverPictureFile(e)}
@@ -176,10 +179,11 @@ const EditProfileModal = ({ user }) => {
       {/* save button */}
       <div className="flex justify-end w-full my-5">
         <button
+          disabled={isLoading}
           onClick={handleSubmit}
-          className="w-[120px] h-[40px] border-[0.2px] rounded-lg border-background_dark_blue font-bold text-[14px] bg-background_dark_blue text-white hover:bg-transparent hover:text-background_dark_blue"
+          className="flex justify-center items-center w-[120px] h-[40px] border-[0.2px] rounded-lg border-background_dark_blue font-bold text-[14px] bg-background_dark_blue text-white hover:bg-transparent hover:text-background_dark_blue"
         >
-          Save changes
+          {isLoading ? <Spinner size={13} /> : <>Save changes</>}
         </button>
       </div>
     </>

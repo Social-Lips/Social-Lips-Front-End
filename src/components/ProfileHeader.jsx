@@ -18,9 +18,9 @@ const ProfileHeader = ({ user }) => {
   return (
     <div className="w-full relative">
       {/* cover image */}
-      <div className="w-[1100px] h-[350px] flex relative ">
+      <div className="w-[1100px] h-[350px] flex relative bg-black rounded-xl ">
         <img
-          src="../src/assets/cover2.jpg"
+          src={user?.coverPicture}
           height={350}
           width={1100}
           className="object-cover rounded-xl"

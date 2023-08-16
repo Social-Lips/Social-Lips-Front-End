@@ -6,9 +6,9 @@ const ProfileCard = ({ user }) => {
   return (
     <div className="relative h-fit bg-background_light_blue rounded-lg">
       {/* cover image */}
-      <div className="h-[126px] w-[380px] bg-black flex ">
+      <div className="h-[126px] w-[380px] flex ">
         <img
-          src="../src/assets/cover.jpg"
+          src={user?.coverPicture}
           height={126}
           width={380}
           className="object-cover rounded-t-lg"

@@ -21,7 +21,6 @@ export const useUpdateUser = () => {
   ) => {
     setIsLoading(true);
     setError(null);
-    const first_name = "Arun";
 
     const frmData = new FormData();
     frmData.append("adminId", adminId);

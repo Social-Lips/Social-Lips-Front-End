@@ -15,6 +15,7 @@ const UploadCard = ({ user }) => {
   const [file, setFile] = useState();
   const [postType, setPostType] = useState("");
 
+  // const { user } = useAuthContext();
   const { createPost, isLoading, error } = useCreatePost();
 
   function handleFile(e) {

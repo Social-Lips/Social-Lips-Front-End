@@ -20,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     getAllPosts();
     _getUser();
-  }, []);
+  }, [id]);
 
   const getAllPosts = async () => {
     await getPosts(id);
