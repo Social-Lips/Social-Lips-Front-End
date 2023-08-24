@@ -35,7 +35,7 @@ const ProfileCard = ({ user }) => {
         <p className="text-[16px] font-light text-font_light_gray">
           {user?.email}
         </p>
-        <p className="text-[16px] font-light text-white px-10 text-center leading-4">
+        <p className="text-[16px] font-light text-white px-10 text-center leading-5">
           {user?.bio}{" "}
         </p>
       </div>

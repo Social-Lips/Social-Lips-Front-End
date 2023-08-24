@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ProfileCard,
   FollowYouCard,
@@ -11,6 +11,7 @@ import { useGetPosts } from "../hooks/useGetPosts";
 import { useEffect } from "react";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useGetUser } from "../hooks/useGetUser";
+import PostUploadingAnimation from "./PostUploadingAnimation";
 
 const Feed = () => {
   const { user: adminUser } = useAuthContext();
@@ -21,11 +22,17 @@ const Feed = () => {
     isLoading: userIsLoading,
     error: userError,
   } = useGetUser();
+  const [allPosts, setAllPosts] = useState(posts);
+  const [isUploading, setIsUploading] = useState(null);
 
   useEffect(() => {
     getAllPosts();
     _getUser();
   }, []);
+
+  useEffect(() => {
+    setAllPosts(posts);
+  }, [isLoading]);
 
   const getAllPosts = async () => {
     await getPosts(adminUser._id);
@@ -46,10 +53,20 @@ const Feed = () => {
 
       {/* middle column */}
       <div className="h-[473px] w-[680px] flex flex-col">
-        <UploadCard user={user[0]} />
-        {posts &&
-          posts.map((post, index) => (
-            <PostCard post={post} user={user[0]} key={index} />
+        <UploadCard
+          user={user[0]}
+          setAllPosts={setAllPosts}
+          setIsUploading={setIsUploading}
+        />
+        {isUploading && <PostUploadingAnimation />}
+        {allPosts &&
+          allPosts.map((post, index) => (
+            <PostCard
+              post={post}
+              postOwner={user[0]}
+              adminUser={user[0]}
+              key={index}
+            />
           ))}
       </div>
 

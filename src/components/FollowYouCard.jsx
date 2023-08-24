@@ -4,7 +4,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 
 const FollowYouCard = ({ cardTitle }) => {
-  const { user } = useAuthContext();
+  const { user: adminUser } = useAuthContext();
+
   const { getUsers, isLoading, error, users } = useGetUsers();
 
   useEffect(() => {
@@ -12,7 +13,7 @@ const FollowYouCard = ({ cardTitle }) => {
   }, []);
 
   const getAllUsers = async () => {
-    await getUsers(user._id);
+    await getUsers(adminUser._id);
   };
 
   return (

@@ -1,32 +1,32 @@
 import axios from "axios";
 import { useState } from "react";
 
-export const useGetPosts = () => {
+export const useGetComments = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [posts, setPosts] = useState("");
+  const [comments, setComments] = useState([]);
 
-  const getPosts = async (user_id) => {
+  const getComments = async (postId) => {
     setIsLoading(true);
     setError(null);
 
     axios({
       method: "GET",
       headers: { "Content-Type": "application/json" },
-      url: "http://localhost:8800/api/posts",
+      url: "http://localhost:8800/api/posts/comments",
       params: {
-        user_id,
+        postId,
       },
     })
       .then((res) => {
         setIsLoading(false);
-        setPosts(res.data);
+        setComments(res.data);
       })
       .catch((err) => {
         setIsLoading(false);
-        setError(err);
+        setError(err.response.data.error);
       });
   };
 
-  return { getPosts, isLoading, error, posts };
+  return { getComments, isLoading, error, comments };
 };

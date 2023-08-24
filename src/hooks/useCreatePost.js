@@ -4,6 +4,7 @@ import { useState } from "react";
 export const useCreatePost = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
+  const [newPost, setNewPost] = useState(null);
 
   const createPost = async (user_id, description, file, postType) => {
     setIsLoading(true);
@@ -14,7 +15,6 @@ export const useCreatePost = () => {
     frmData.append("user_id", user_id);
     frmData.append("description", description);
     frmData.append("postType", postType);
-    console.log(frmData.getAll);
 
     axios({
       method: "POST",
@@ -24,7 +24,8 @@ export const useCreatePost = () => {
     })
       .then((res) => {
         setIsLoading(false);
-        console.log(res);
+        console.log(res.data);
+        setNewPost(res.data);
       })
       .catch((err) => {
         setIsLoading(false);
@@ -34,5 +35,5 @@ export const useCreatePost = () => {
       });
   };
 
-  return { createPost, isLoading, error };
+  return { createPost, newPost, isLoading, error };
 };

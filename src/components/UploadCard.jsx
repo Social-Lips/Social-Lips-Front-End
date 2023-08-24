@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useCreatePost } from "../hooks/useCreatePost";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -10,13 +10,13 @@ const videoType = [
   { value: "Voice", label: "Voice Language video" },
 ];
 
-const UploadCard = ({ user }) => {
+const UploadCard = ({ user, setAllPosts, setIsUploading }) => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [postType, setPostType] = useState("");
 
   // const { user } = useAuthContext();
-  const { createPost, isLoading, error } = useCreatePost();
+  const { createPost, newPost, isLoading, error } = useCreatePost();
 
   function handleFile(e) {
     setFile(e.target.files[0]);
@@ -27,6 +27,14 @@ const UploadCard = ({ user }) => {
   const handleUpload = async () => {
     await createPost(user._id, description, file, postType);
   };
+
+  useEffect(() => {
+    setAllPosts((prev) => [newPost, ...prev]);
+  }, [newPost]);
+
+  useEffect(() => {
+    setIsUploading(isLoading);
+  }, [isLoading]);
 
   return (
     <div className="flex h-[245px] bg-background_light_blue px-5 py-4 rounded-lg justify-between">

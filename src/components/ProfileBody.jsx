@@ -1,11 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FollowYouCard from "./FollowYouCard";
 import UploadCard from "./UploadCard";
 import PostCard from "./PostCard";
 import ProfileAbout from "./ProfileAbout";
+import { useGetUser } from "../hooks/useGetUser";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const ProfileBody = ({ posts, user }) => {
+  const { user: adminUserId } = useAuthContext();
+
+  const {
+    getUser,
+    user: adminUser,
+    isLoading: userIsLoading,
+    error: userError,
+  } = useGetUser();
+
   const [isActive, setIsActive] = useState("Posts");
+
+  const _getUser = async () => {
+    await getUser(adminUserId._id);
+  };
+
+  useEffect(() => {
+    _getUser();
+  }, []);
+
   return (
     <main>
       {/* navigation */}
@@ -38,10 +58,15 @@ const ProfileBody = ({ posts, user }) => {
 
         {/* right side cards */}
         <div className="w-full">
-          <UploadCard user={user} />
+          {/* <UploadCard user={user} /> */}
           {posts &&
             posts.map((post, index) => (
-              <PostCard post={post} user={user} key={index} />
+              <PostCard
+                post={post}
+                postOwner={user}
+                adminUser={adminUser[0]}
+                key={index}
+              />
             ))}
         </div>
       </section>
