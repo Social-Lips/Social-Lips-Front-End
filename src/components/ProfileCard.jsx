@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
+import dummyCoverImage from "../assets/dummy_cover.png";
 
 const ProfileCard = ({ user }) => {
   return (
@@ -8,7 +9,7 @@ const ProfileCard = ({ user }) => {
       {/* cover image */}
       <div className="h-[126px] w-[380px] flex ">
         <img
-          src={user?.coverPicture}
+          src={user?.coverPicture || dummyCoverImage}
           height={126}
           width={380}
           className="object-cover rounded-t-lg"

@@ -72,7 +72,7 @@ const Feed = () => {
 
       {/* right column */}
       <div className="h-[473px] w-[300px]">
-        <FollowingCard />
+        <FollowingCard adminUser={user} />
       </div>
     </div>
   );

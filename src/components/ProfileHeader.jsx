@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import EditProfileModal from "./EditProfileModal";
 import { useAuthContext } from "../hooks/useAuthContext";
+import dummyCoverImage from "../assets/dummy_cover.png";
 
 const ProfileHeader = ({ user }) => {
   const { user: adminUser } = useAuthContext();
@@ -20,7 +21,7 @@ const ProfileHeader = ({ user }) => {
       {/* cover image */}
       <div className="w-[1100px] h-[350px] flex relative bg-black rounded-xl ">
         <img
-          src={user?.coverPicture}
+          src={user?.coverPicture || dummyCoverImage}
           height={350}
           width={1100}
           className="object-cover rounded-xl"
