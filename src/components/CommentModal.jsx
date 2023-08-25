@@ -60,7 +60,7 @@ export const CommentModal = ({ postId, userId, adminUser }) => {
             {/* image div */}
             <div className="h-[30px] w-[30px] flex">
               <img
-                src={comment.profilePic}
+                src={comment.commentBy.profilePicture}
                 height={30}
                 width={30}
                 className="object-cover rounded-full "
@@ -71,7 +71,8 @@ export const CommentModal = ({ postId, userId, adminUser }) => {
               {/* name and update date */}
               <div className="leading-tight">
                 <h1 className="font-bold text-[12px]">
-                  <span>{comment.userName}</span>
+                  <span>{comment.commentBy.first_name}</span>{" "}
+                  <span>{comment.commentBy.last_name}</span>
                 </h1>
                 <p className="text-font_light_gray text-[10px] font-thin">
                   {formatDistanceToNow(new Date(comment?.createdAt), {
