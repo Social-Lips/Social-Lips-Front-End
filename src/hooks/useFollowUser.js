@@ -1,34 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios"; // You might need to install and configure an HTTP client like axios
 
-export const useAddComment = () => {
+export const useFollowUser = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [comment, setComment] = useState(null);
+  const [result, setResult] = useState(null);
 
-  const addComment = async (
-    postId,
-    userId,
-    commentText,
-    userName,
-    profilePic
-  ) => {
+  const followUser = async (paramsId, userId) => {
     setLoading(true);
     axios({
-      method: "POST",
+      method: "PUT",
       headers: { "Content-Type": "application/json" },
-      url: "http://localhost:8800/api/posts/addComment",
+      url: `http://localhost:8800/api/users/${paramsId}/follow`,
       data: JSON.stringify({
-        postId,
         userId,
-        commentText,
-        userName,
-        profilePic,
       }),
     })
       .then((res) => {
         setLoading(false);
-        setComment(res.data);
+        setResult(res.data);
       })
       .catch((err) => {
         setLoading(false);
@@ -39,7 +29,7 @@ export const useAddComment = () => {
   return {
     loading,
     error,
-    comment,
-    addComment,
+    result,
+    followUser,
   };
 };
