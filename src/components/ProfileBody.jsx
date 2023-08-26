@@ -5,9 +5,11 @@ import PostCard from "./PostCard";
 import ProfileAbout from "./ProfileAbout";
 import { useGetUser } from "../hooks/useGetUser";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useGetUsers } from "../hooks/useGetUsers";
 
 const ProfileBody = ({ posts, user }) => {
   const { user: adminUserId } = useAuthContext();
+  const { getUsers, isLoading, error, users: allUsers } = useGetUsers();
 
   const {
     getUser,
@@ -21,6 +23,14 @@ const ProfileBody = ({ posts, user }) => {
   const _getUser = async () => {
     await getUser(adminUserId._id);
   };
+
+  const getAllUsers = async () => {
+    await getUsers(adminUserId._id);
+  };
+
+  useEffect(() => {
+    getAllUsers();
+  }, []);
 
   useEffect(() => {
     _getUser();
@@ -53,7 +63,11 @@ const ProfileBody = ({ posts, user }) => {
         {/* left side (Followers) cards */}
         <div className="">
           <ProfileAbout user={user} />
-          <FollowYouCard cardTitle={"Followers"} />
+          <FollowYouCard
+            cardTitle={"Followers"}
+            allUsers={allUsers}
+            filterIdArray={adminUser[0]?.followers}
+          />
         </div>
 
         {/* right side cards */}

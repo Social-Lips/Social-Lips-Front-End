@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useGetUser } from "../hooks/useGetUser";
 import PostUploadingAnimation from "./PostUploadingAnimation";
+import { filteringUnfollowUsersId } from "../utils/filteringUnfollowUsersId";
 
 const Feed = () => {
   const { user: adminUser } = useAuthContext();
@@ -22,11 +23,21 @@ const Feed = () => {
     isLoading: userIsLoading,
     error: userError,
   } = useGetUser();
+  const {
+    getUsers,
+    users: allUsers,
+    isLoading: allUsersLoading,
+  } = useGetUsers();
+
   const [allPosts, setAllPosts] = useState(posts);
   const [isUploading, setIsUploading] = useState(null);
 
+  console.log(allUsers);
+  console.log(user[0]?.followings.length);
+
   useEffect(() => {
     getAllPosts();
+    getAllUsers();
     _getUser();
   }, []);
 
@@ -40,6 +51,9 @@ const Feed = () => {
   const _getUser = async () => {
     await getUser(adminUser._id);
   };
+  const getAllUsers = async () => {
+    await getUsers(adminUser._id);
+  };
   return (
     <div className="pt-[60px] px-4 flex justify-center gap-x-2">
       {/* left column */}
@@ -48,7 +62,14 @@ const Feed = () => {
         <ProfileCard user={user[0]} />
 
         {/* Who is to follow you card */}
-        <FollowYouCard cardTitle={"Who is to follow you"} />
+        <FollowYouCard
+          cardTitle={"Who is to follow you"}
+          allUsers={allUsers}
+          filterIdArray={filteringUnfollowUsersId(
+            allUsers,
+            user[0]?.followings
+          )}
+        />
       </div>
 
       {/* middle column */}
