@@ -66,18 +66,26 @@ const ProfileBody = ({ posts, user }) => {
         </div>
 
         {/* right side cards */}
-        <div className="w-full">
-          {/* <UploadCard user={user} /> */}
-          {posts &&
-            posts.map((post, index) => (
-              <PostCard
-                post={post}
-                postOwner={user}
-                adminUser={adminUser[0]}
-                key={index}
-              />
-            ))}
-        </div>
+        {isActive === "Posts" ? (
+          <div className="w-full">
+            {/* <UploadCard user={user} /> */}
+            {posts &&
+              posts.map((post, index) => (
+                <PostCard
+                  post={post}
+                  postOwner={user}
+                  adminUser={adminUser[0]}
+                  key={index}
+                />
+              ))}
+          </div>
+        ) : isActive === "Photos" ? (
+          <>Photo</>
+        ) : isActive === "Videos" ? (
+          <>Video</>
+        ) : (
+          <>About</>
+        )}
       </section>
     </main>
   );
