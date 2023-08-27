@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { useCreatePost } from "../hooks/useCreatePost";
-import { useAuthContext } from "../hooks/useAuthContext";
+import dummyProfileImage from "../assets/dummy-profile.jpeg";
 import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
 
@@ -15,8 +15,7 @@ const UploadCard = ({ user, setAllPosts, setIsUploading }) => {
   const [file, setFile] = useState();
   const [postType, setPostType] = useState("");
 
-  // const { user } = useAuthContext();
-  const { createPost, newPost, isLoading, error } = useCreatePost();
+  const { createPost, newPost, isLoading } = useCreatePost();
 
   function handleFile(e) {
     setFile(e.target.files[0]);
@@ -41,7 +40,7 @@ const UploadCard = ({ user, setAllPosts, setIsUploading }) => {
       {/* image div */}
       <div className="h-[55px] w-[55px] flex">
         <img
-          src={user?.profilePicture}
+          src={user?.profilePicture || dummyProfileImage}
           height={55}
           width={55}
           className="object-cover rounded-full"

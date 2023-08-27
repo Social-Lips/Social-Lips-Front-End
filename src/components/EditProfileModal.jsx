@@ -36,6 +36,8 @@ const EditProfileModal = ({ user, onClose }) => {
     );
   };
 
+  console.log(user);
+
   const handleProfilePictureFile = (e) => {
     setProfilePic(e.target.files[0]);
   };

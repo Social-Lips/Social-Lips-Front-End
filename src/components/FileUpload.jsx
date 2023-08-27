@@ -5,7 +5,6 @@ function FileUpload(props) {
 
   function handleFile(e) {
     setFile(e.target.files[0]);
-    console.log(file);
   }
   return (
     <div className="App">

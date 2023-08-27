@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import ReactPlayer from "react-player";
 import * as Dialog from "@radix-ui/react-dialog";
-
 import { useLikeDislike } from "../hooks/useLikeDislike";
+import dummyProfileImage from "../assets/dummy-profile.jpeg";
 
 import "react-activity/dist/Spinner.css";
 import { Spinner } from "react-activity";
+
 import { useAuthContext } from "../hooks/useAuthContext";
 import { CommentModal } from "./CommentModal";
 
@@ -14,7 +15,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
 
   const [likes, setLikes] = useState(post?.likes?.length);
-  const { likeDislike, likeValue, isLoading, error } = useLikeDislike();
+  const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   useEffect(() => {
     // Update the likes state when the likeValue changes
@@ -32,12 +33,12 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
-      <div className="h-[55px] w-[55px] block relative">
+      <div className="h-[55px] w-[55px] flex">
         <img
-          src={postOwner?.profilePicture}
+          src={postOwner?.profilePicture || dummyProfileImage}
           height={55}
           width={55}
-          className="object-fit h-[55px] w-[55px] rounded-full "
+          className="object-cover h-[55px] w-[55px] rounded-full "
         />
       </div>
 

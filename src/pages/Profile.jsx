@@ -7,7 +7,6 @@ import { useParams } from "react-router-dom";
 import { useGetUser } from "../hooks/useGetUser";
 
 const Profile = () => {
-  // const { user } = useAuthContext();
   const { getPosts, isLoading, error, posts } = useGetPosts();
   const {
     getUser,

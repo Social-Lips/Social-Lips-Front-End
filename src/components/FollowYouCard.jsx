@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useFollowUser } from "../hooks/useFollowUser";
 
@@ -7,8 +7,7 @@ import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
 
 const FollowYouCard = ({ cardTitle, allUsers, filterIdArray, adminUser }) => {
-  const { followUser, loading, result, setResult, resultUserId, loadingId } =
-    useFollowUser();
+  const { followUser, resultUserId, loadingId } = useFollowUser();
 
   const [changeButtonTextValue, setChangeButtonTextValue] = useState([]);
 

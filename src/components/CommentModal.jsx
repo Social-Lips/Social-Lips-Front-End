@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { useAddComment } from "../hooks/useAddComment";

@@ -3,6 +3,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import EditProfileModal from "./EditProfileModal";
 import { useAuthContext } from "../hooks/useAuthContext";
 import dummyCoverImage from "../assets/dummy_cover.png";
+import dummyProfileImage from "../assets/dummy-profile.jpeg";
 import { useFollowUser } from "../hooks/useFollowUser";
 import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
@@ -24,12 +25,7 @@ const ProfileHeader = ({ paramsUser }) => {
     result: unFollowResult,
     setResult: setUnFollowResult,
   } = useUnFollowUser();
-  const {
-    getUser,
-    user,
-    isLoading: userIsLoading,
-    error: userError,
-  } = useGetUser();
+  const { getUser, user, isLoading: userIsLoading } = useGetUser();
 
   const openDialog = () => {
     setIsDialogOpen(true);
@@ -81,7 +77,7 @@ const ProfileHeader = ({ paramsUser }) => {
       <div className="h-[200px] w-[200px] flex absolute top-2/3 transform -translate-y-[10%] border-[4px] border-background_dark_blue rounded-full">
         <img
           className="object-cover rounded-full"
-          src={paramsUser?.profilePicture}
+          src={paramsUser?.profilePicture || dummyProfileImage}
           height={200}
           width={200}
         />
@@ -126,7 +122,7 @@ const ProfileHeader = ({ paramsUser }) => {
                   className="fixed flex justify-center items-center flex-col py-5 px-8 w-[490px] top-1/2 right-1/2 bg-white transform translate-x-1/2 -translate-y-1/2 animate-wiggle z-50 rounded-2xl drop-shadow-none"
                   style={{ minWidth: "300px" }}
                 >
-                  <EditProfileModal onClose={closeDialog} user={user} />
+                  <EditProfileModal onClose={closeDialog} user={user[0]} />
                 </Dialog.Content>
               </Dialog.Root>
             ) : (

@@ -1,7 +1,7 @@
 import React from "react";
-import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import dummyCoverImage from "../assets/dummy_cover.png";
+import dummyProfileImage from "../assets/dummy-profile.jpeg";
 
 const ProfileCard = ({ user }) => {
   return (
@@ -20,7 +20,7 @@ const ProfileCard = ({ user }) => {
       <div className="absolute h-[100px] w-[100px] top-[126px] left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div className="h-[100px] w-[100px] flex bg-slate-600 rounded-full">
           <img
-            src={user?.profilePicture}
+            src={user?.profilePicture || dummyProfileImage}
             height={100}
             width={100}
             className="object-cover rounded-full border-[4px] border-background_light_blue"

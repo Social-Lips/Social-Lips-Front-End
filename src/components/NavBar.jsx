@@ -9,12 +9,7 @@ import { useEffect } from "react";
 const NavBar = () => {
   const { logout } = useLogOut();
   const { user: adminUser } = useAuthContext();
-  const {
-    getUser,
-    user,
-    isLoading: userIsLoading,
-    error: userError,
-  } = useGetUser();
+  const { getUser, user } = useGetUser();
 
   useEffect(() => {
     _getUser();
@@ -43,20 +38,21 @@ const NavBar = () => {
 
       {/* home button, notification button, profile button */}
       <Dialog.Root>
-        <Dialog.Trigger>
-          <div className="flex justify-center items-center gap-x-1">
+        <div className="flex justify-center items-center gap-x-1">
+          <Link to={`/`}>
             <div className="bg-white h-[36px] w-[90px] flex justify-center items-center rounded-full gap-1 cursor-pointer">
               <img src="../src/assets/home1.svg" height={22} width={22} />
               <p className="text-[12px] font-bold">Home</p>
             </div>
+          </Link>
 
-            <div className="relative cursor-pointer">
-              <img src="../src/assets/bell.svg" height={24} width={24} />
-              <div className="absolute h-[12px] w-[12px] rounded-full bg-button_blue top-0 right-0 border-[1.5px] border-background_dark_blue" />
-            </div>
+          <div className="relative cursor-pointer">
+            <img src="../src/assets/bell.svg" height={24} width={24} />
+            <div className="absolute h-[12px] w-[12px] rounded-full bg-button_blue top-0 right-0 border-[1.5px] border-background_dark_blue" />
+          </div>
 
-            <div className="bg-input_box_gray w-[1px] h-[40px] mx-3" />
-
+          <div className="bg-input_box_gray w-[1px] h-[40px] mx-3" />
+          <Dialog.Trigger>
             <div className="h-[45px] w-[45px] flex cursor-pointer">
               <img
                 src={user[0]?.profilePicture}
@@ -65,8 +61,8 @@ const NavBar = () => {
                 className="rounded-full ml-[2px] object-cover border-2 border-button_blue"
               />
             </div>
-          </div>
-        </Dialog.Trigger>
+          </Dialog.Trigger>
+        </div>
         <Dialog.Content className="fixed flex justify-center items-center p-3 top-[8vh] right-[16px] bg-background_light_blue rounded-3xl shadow-2xl shadow-black duration-500">
           <div className="bg-input_box_gray w-[350px] rounded-3xl flex flex-col">
             {/* ---------- */}

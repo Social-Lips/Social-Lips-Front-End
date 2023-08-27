@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import FollowYouCard from "./FollowYouCard";
-import UploadCard from "./UploadCard";
 import PostCard from "./PostCard";
 import ProfileAbout from "./ProfileAbout";
 import { useGetUser } from "../hooks/useGetUser";
@@ -9,14 +8,9 @@ import { useGetUsers } from "../hooks/useGetUsers";
 
 const ProfileBody = ({ posts, user }) => {
   const { user: adminUserId } = useAuthContext();
-  const { getUsers, isLoading, error, users: allUsers } = useGetUsers();
+  const { getUsers, users: allUsers } = useGetUsers();
 
-  const {
-    getUser,
-    user: adminUser,
-    isLoading: userIsLoading,
-    error: userError,
-  } = useGetUser();
+  const { getUser, user: adminUser } = useGetUser();
 
   const [isActive, setIsActive] = useState("Posts");
 
