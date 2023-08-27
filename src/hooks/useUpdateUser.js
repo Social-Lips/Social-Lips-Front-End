@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 export const useUpdateUser = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
+  const [result, setResult] = useState(null);
   const { id: paramsId } = useParams();
 
   const updateUser = async (
@@ -21,6 +22,7 @@ export const useUpdateUser = () => {
   ) => {
     setIsLoading(true);
     setError(null);
+    setResult(null);
 
     const frmData = new FormData();
     frmData.append("adminId", adminId);
@@ -42,14 +44,14 @@ export const useUpdateUser = () => {
     })
       .then((res) => {
         setIsLoading(false);
-        console.log(res);
+        setResult("Update Successfully");
       })
       .catch((err) => {
         setIsLoading(false);
+        setResult("Can't Update");
         setError(err);
-        console.log(err);
       });
   };
 
-  return { updateUser, isLoading, error };
+  return { updateUser, isLoading, error, result, setResult };
 };

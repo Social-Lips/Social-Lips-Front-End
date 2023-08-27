@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useUpdateUser } from "../hooks/useUpdateUser";
 import { useParams } from "react-router-dom";
@@ -6,6 +6,8 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 import "react-activity/dist/Spinner.css";
 import { Spinner } from "react-activity";
+
+import toast, { Toaster } from "react-hot-toast";
 
 const EditProfileModal = ({ user, onClose }) => {
   const [firstName, setFirstName] = useState("");
@@ -19,7 +21,7 @@ const EditProfileModal = ({ user, onClose }) => {
   const [coverPic, setCoverPic] = useState();
 
   const { user: adminUser } = useAuthContext();
-  const { updateUser, isLoading, error } = useUpdateUser();
+  const { updateUser, isLoading, error, result, setResult } = useUpdateUser();
 
   const handleSubmit = async () => {
     await updateUser(
@@ -36,8 +38,6 @@ const EditProfileModal = ({ user, onClose }) => {
     );
   };
 
-  console.log(user);
-
   const handleProfilePictureFile = (e) => {
     setProfilePic(e.target.files[0]);
   };
@@ -45,8 +45,22 @@ const EditProfileModal = ({ user, onClose }) => {
     setCoverPic(e.target.files[0]);
   };
 
+  const notify = () => result && toast.success(result);
+
+  useEffect(() => {
+    notify();
+  }, [result]);
+
   return (
     <>
+      <Toaster
+        toastOptions={{
+          style: {
+            background: "#081A26",
+            color: "#fff",
+          },
+        }}
+      />
       <div className="w-full flex justify-end mb-8">
         <Dialog.Close className="">
           <img
