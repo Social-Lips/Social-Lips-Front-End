@@ -32,9 +32,6 @@ const Feed = () => {
   const [allPosts, setAllPosts] = useState(posts);
   const [isUploading, setIsUploading] = useState(null);
 
-  console.log(allUsers);
-  console.log(user[0]?.followings.length);
-
   useEffect(() => {
     getAllPosts();
     getAllUsers();
@@ -69,6 +66,7 @@ const Feed = () => {
             allUsers,
             user[0]?.followings
           )}
+          adminUser={user}
         />
       </div>
 

@@ -33,7 +33,7 @@ const Profile = () => {
   return (
     <main className="max-w-[1100px] pt-[8vh] mx-auto">
       {/* profile screen header */}
-      {!userIsLoading && <ProfileHeader user={user[0]} />}
+      {!userIsLoading && <ProfileHeader paramsUser={user[0]} />}
 
       {/* gray color line */}
       <div className="w-full h-[1px] bg-input_box_gray mt-[50px]" />

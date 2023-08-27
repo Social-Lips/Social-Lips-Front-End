@@ -5,9 +5,15 @@ export const useFollowUser = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
+  const [resultUserId, setResultUserId] = useState(null);
+  const [loadingId, setLoadingId] = useState(null);
 
   const followUser = async (paramsId, userId) => {
     setLoading(true);
+    setResult(null);
+    setLoadingId(paramsId);
+    // setResultUserId(null);
+
     axios({
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -17,11 +23,14 @@ export const useFollowUser = () => {
       }),
     })
       .then((res) => {
+        setResult("Following");
+        setResultUserId(paramsId);
         setLoading(false);
-        setResult(res.data);
+        setLoadingId(null);
       })
       .catch((err) => {
         setLoading(false);
+        setLoadingId(null);
         setError(err);
       });
   };
@@ -31,5 +40,8 @@ export const useFollowUser = () => {
     error,
     result,
     followUser,
+    setResult,
+    resultUserId,
+    loadingId,
   };
 };

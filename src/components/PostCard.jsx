@@ -32,12 +32,12 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
-      <div className="h-[55px] w-[55px] flex">
+      <div className="h-[55px] w-[55px] block relative">
         <img
           src={postOwner?.profilePicture}
           height={55}
           width={55}
-          className="object-cover rounded-full "
+          className="object-fit h-[55px] w-[55px] rounded-full "
         />
       </div>
 

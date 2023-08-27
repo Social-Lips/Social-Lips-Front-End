@@ -8,6 +8,8 @@ export const useUnFollowUser = () => {
 
   const unFollowUser = async (paramsId, userId) => {
     setLoading(true);
+    setResult(null);
+
     axios({
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -18,7 +20,7 @@ export const useUnFollowUser = () => {
     })
       .then((res) => {
         setLoading(false);
-        setResult(res.data);
+        setResult("Follow");
       })
       .catch((err) => {
         setLoading(false);
@@ -31,5 +33,6 @@ export const useUnFollowUser = () => {
     error,
     result,
     unFollowUser,
+    setResult,
   };
 };

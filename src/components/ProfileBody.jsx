@@ -67,6 +67,7 @@ const ProfileBody = ({ posts, user }) => {
             cardTitle={"Followers"}
             allUsers={allUsers}
             filterIdArray={adminUser[0]?.followers}
+            adminUser={adminUser}
           />
         </div>
 

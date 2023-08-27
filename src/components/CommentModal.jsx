@@ -58,12 +58,10 @@ export const CommentModal = ({ postId, userId, adminUser }) => {
             className="h-auto w-full bg-white px-8 py-3 flex rounded-md mb-1"
           >
             {/* image div */}
-            <div className="h-[30px] w-[30px] flex">
+            <div className="h-[30px] w-[30px] block relative">
               <img
                 src={comment.commentBy.profilePicture}
-                height={30}
-                width={30}
-                className="object-cover rounded-full "
+                className="object-fill h-[30px] w-[30px] rounded-full "
               />
             </div>
 
