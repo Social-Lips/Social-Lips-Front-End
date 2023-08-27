@@ -12,7 +12,6 @@ export const useFollowUser = () => {
     setLoading(true);
     setResult(null);
     setLoadingId(paramsId);
-    // setResultUserId(null);
 
     axios({
       method: "PUT",

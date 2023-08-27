@@ -5,10 +5,13 @@ export const useUnFollowUser = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
+  const [resultUserId, setResultUserId] = useState(null);
+  const [loadingId, setLoadingId] = useState(null);
 
   const unFollowUser = async (paramsId, userId) => {
     setLoading(true);
     setResult(null);
+    setLoadingId(paramsId);
 
     axios({
       method: "PUT",
@@ -21,6 +24,8 @@ export const useUnFollowUser = () => {
       .then((res) => {
         setLoading(false);
         setResult("Follow");
+        setResultUserId(paramsId);
+        setLoadingId(null);
       })
       .catch((err) => {
         setLoading(false);
@@ -34,5 +39,7 @@ export const useUnFollowUser = () => {
     result,
     unFollowUser,
     setResult,
+    resultUserId,
+    loadingId,
   };
 };

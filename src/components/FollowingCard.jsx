@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { Link } from "react-router-dom";
 import { useUnFollowUser } from "../hooks/useUnFollowUser";
+import { Spinner } from "react-activity";
+import "react-activity/dist/Spinner.css";
+
+import { CheckIcon } from "@heroicons/react/24/solid";
 
 const FollowingCard = ({ adminUser }) => {
   const { user: adminUserId } = useAuthContext();
   const { getUsers, isLoading, error, users: allUsers } = useGetUsers();
-  const { unFollowUser } = useUnFollowUser();
+  const { unFollowUser, resultUserId, loadingId } = useUnFollowUser();
+
+  const [changeButtonTextValue, setChangeButtonTextValue] = useState([]);
 
   const adminFollowers = adminUser[0]?.followings;
 
@@ -22,6 +28,11 @@ const FollowingCard = ({ adminUser }) => {
   const handleUnFollowUser = async (paramsId, userId) => {
     await unFollowUser(paramsId, userId);
   };
+
+  useEffect(() => {
+    !changeButtonTextValue.includes(resultUserId) &&
+      setChangeButtonTextValue((prev) => [...prev, resultUserId]);
+  }, [resultUserId]);
 
   return (
     <div className="max-h-full bg-background_light_blue rounded-lg overflow-y-scroll py-6 px-4">
@@ -58,12 +69,19 @@ const FollowingCard = ({ adminUser }) => {
 
                   {/* un follow button */}
                   <button
+                    disabled={changeButtonTextValue.includes(user._id)}
                     onClick={() =>
                       handleUnFollowUser(user._id, adminUserId._id)
                     }
-                    className="h-[30px] w-[80px] bg-white rounded-full font-bold text-[12px]"
+                    className="flex justify-center items-center h-[30px] w-[80px] bg-white rounded-full font-bold text-[12px]"
                   >
-                    Unfollow
+                    {loadingId === user._id ? (
+                      <Spinner size={10} />
+                    ) : changeButtonTextValue.includes(user._id) ? (
+                      <CheckIcon className="h-4 w-4" />
+                    ) : (
+                      <>Unfollow</>
+                    )}
                   </button>
 
                   {/* horizontal line */}
