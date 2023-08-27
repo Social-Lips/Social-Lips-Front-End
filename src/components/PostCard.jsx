@@ -11,6 +11,8 @@ import { Spinner } from "react-activity";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { CommentModal } from "./CommentModal";
 
+import envtt from "../assets/subs/en.vtt?url";
+
 const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
 
@@ -78,6 +80,21 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               className="react-player"
               width="100%"
               height="100%"
+              config={{
+                file: {
+                  attributes: {
+                    crossOriginIsolated: "anonymus",
+                  },
+                  tracks: [
+                    {
+                      kind: "subtitles",
+                      src: envtt,
+                      srcLang: "tr",
+                      default: true,
+                    },
+                  ],
+                },
+              }}
             />
           )}
         </div>
