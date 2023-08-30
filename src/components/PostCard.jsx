@@ -17,6 +17,8 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
 
   const [likes, setLikes] = useState(post?.likes?.length);
+  const [commentsCount, setCommentsCount] = useState(post?.comments?.length);
+
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   useEffect(() => {
@@ -117,7 +119,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
           {/* comment view */}
           <div>
             <span className="text-[14px] font-light text-font_light_gray">
-              {post?.comments.length} comments
+              {commentsCount} comments
             </span>
           </div>
         </div>
@@ -167,6 +169,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
                 postId={post._id}
                 userId={adminUserId._id}
                 adminUser={adminUser}
+                setCommentsCount={setCommentsCount}
               />
             </Dialog.Content>
           </Dialog.Root>
