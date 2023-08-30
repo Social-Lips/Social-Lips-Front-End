@@ -22,12 +22,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   useEffect(() => {
-    // Update the likes state when the likeValue changes
-    if (likeValue !== null && likeValue === "liked") {
-      setLikes((prev) => prev + 1); // Update the likes count with the new value
-    } else if (likeValue !== null && likeValue === "disliked") {
-      setLikes((prev) => prev - 1); // Update the dislikes count with the new value
-    }
+    likeValue && setLikes((prev) => prev + 1);
   }, [likeValue]);
 
   const handleLike = async () => {

@@ -24,7 +24,6 @@ export const useLikeDislike = () => {
       })
       .catch((err) => {
         setIsLoading(false);
-        // alert("error");
         setError(err);
         console.log(err);
       });
