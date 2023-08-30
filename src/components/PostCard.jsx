@@ -19,10 +19,19 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const [likes, setLikes] = useState(post?.likes?.length);
   const [commentsCount, setCommentsCount] = useState(post?.comments?.length);
 
+  const [likesArray, setLikesArray] = useState(post?.likes);
+
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   useEffect(() => {
-    likeValue && setLikes((prev) => prev + 1);
+    // Update the likes state when the likeValue changes
+    if (likeValue !== null && likeValue === "liked") {
+      setLikes((prev) => prev + 1); // Update the likes count with the new value
+      setLikesArray((prev) => [...prev, adminUserId._id]);
+    } else if (likeValue !== null && likeValue === "disliked") {
+      setLikes((prev) => prev - 1); // Update the dislikes count with the new value
+      setLikesArray((prev) => prev.filter((value) => value != adminUserId._id));
+    }
   }, [likeValue]);
 
   const handleLike = async () => {
@@ -131,12 +140,21 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               <Spinner size={13} />
             ) : (
               <>
-                <img
-                  src="../src/assets/like.svg"
-                  height={25}
-                  width={25}
-                  className="object-contain"
-                />
+                {!likesArray.includes(adminUserId._id) ? (
+                  <img
+                    src="../src/assets/outlineLike.svg"
+                    height={25}
+                    width={25}
+                    className="object-contain"
+                  />
+                ) : (
+                  <img
+                    src="../src/assets/like.svg"
+                    height={25}
+                    width={25}
+                    className="object-contain"
+                  />
+                )}
                 Like
               </>
             )}

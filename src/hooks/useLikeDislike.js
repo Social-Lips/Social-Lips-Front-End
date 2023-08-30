@@ -21,6 +21,7 @@ export const useLikeDislike = () => {
       .then((res) => {
         setIsLoading(false);
         setLikeValue(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         setIsLoading(false);
