@@ -12,6 +12,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { CommentModal } from "./CommentModal";
 
 import envtt from "../assets/subs/en.vtt?url";
+import LikesCommentsModal from "./LikesCommentsModal";
 
 const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
@@ -22,6 +23,8 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const [likesArray, setLikesArray] = useState(post?.likes);
 
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
+
+  const test = ["a", "deshan"];
 
   useEffect(() => {
     // Update the likes state when the likeValue changes
@@ -37,7 +40,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const handleLike = async () => {
     await likeDislike(post?._id, adminUser._id);
   };
-
+  console.log(test.at(0).length > 0);
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
@@ -108,24 +111,43 @@ const PostCard = ({ post, postOwner, adminUser }) => {
         {/* likes and comment view area */}
         <div className="flex justify-between items-center">
           {/* like count */}
-          <div className="flex items-center gap-x-1">
-            <img
-              src="../src/assets/like.svg"
-              height={18}
-              width={18}
-              className="object-contain bg-button_blue rounded-full p-[2px]"
-            />
-            <span className="text-[14px] font-light text-font_light_gray">
-              {likes}
-            </span>
-          </div>
+          <Dialog.Root>
+            <Dialog.Trigger>
+              <button
+                className="flex items-center gap-x-1"
+                disabled={!likesArray?.at(0).length > 0}
+              >
+                <img
+                  src="../src/assets/like.svg"
+                  height={18}
+                  width={18}
+                  className="object-contain bg-button_blue rounded-full p-[2px]"
+                />
+                <span className="text-[14px] font-light text-font_light_gray">
+                  {likes}
+                </span>
+              </button>
+            </Dialog.Trigger>
+            <Dialog.Overlay className="bg-black/30 h-screen w-screen fixed inset-0 z-40" />
+            <Dialog.Content
+              className="fixed flex justify-center items-center flex-col py-4 w-[400px] top-1/2 right-1/2 bg-[#ffff] transform translate-x-1/2 -translate-y-1/2 animate-wiggle z-50 rounded-lg drop-shadow-none"
+              style={{ minWidth: "200px" }}
+            >
+              <LikesCommentsModal
+                likesArray={likesArray}
+                adminUser={adminUser}
+              />
+            </Dialog.Content>
+          </Dialog.Root>
 
           {/* comment view */}
-          <div>
-            <span className="text-[14px] font-light text-font_light_gray">
-              {commentsCount} comments
-            </span>
-          </div>
+          <Dialog.Root>
+            <button>
+              <span className="text-[14px] font-light text-font_light_gray">
+                {commentsCount} comments
+              </span>
+            </button>
+          </Dialog.Root>
         </div>
 
         {/* like and comment button */}
@@ -140,21 +162,16 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               <Spinner size={13} />
             ) : (
               <>
-                {!likesArray.includes(adminUserId._id) ? (
-                  <img
-                    src="../src/assets/outlineLike.svg"
-                    height={25}
-                    width={25}
-                    className="object-contain"
-                  />
-                ) : (
-                  <img
-                    src="../src/assets/like.svg"
-                    height={25}
-                    width={25}
-                    className="object-contain"
-                  />
-                )}
+                <img
+                  src={
+                    !likesArray.includes(adminUserId._id)
+                      ? "../src/assets/outlineLike.svg"
+                      : "../src/assets/like.svg"
+                  }
+                  height={25}
+                  width={25}
+                  className="object-contain"
+                />
                 Like
               </>
             )}

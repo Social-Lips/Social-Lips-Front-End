@@ -10,7 +10,7 @@ import { CheckIcon } from "@heroicons/react/24/solid";
 
 const FollowingCard = ({ adminUser }) => {
   const { user: adminUserId } = useAuthContext();
-  const { getUsers, isLoading, error, users: allUsers } = useGetUsers();
+  const { getUsers, users: allUsers } = useGetUsers();
   const { unFollowUser, resultUserId, loadingId } = useUnFollowUser();
 
   const [changeButtonTextValue, setChangeButtonTextValue] = useState([]);
