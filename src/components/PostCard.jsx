@@ -12,7 +12,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { CommentModal } from "./CommentModal";
 
 import envtt from "../assets/subs/en.vtt?url";
-import LikesCommentsModal from "./LikesCommentsModal";
+import LikeListModal from "./LikeListModal";
 
 const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
@@ -40,7 +40,6 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const handleLike = async () => {
     await likeDislike(post?._id, adminUser._id);
   };
-  console.log(test.at(0).length > 0);
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
       {/* image div */}
@@ -115,7 +114,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
             <Dialog.Trigger>
               <button
                 className="flex items-center gap-x-1"
-                disabled={!likesArray?.at(0).length > 0}
+                disabled={!likesArray?.at(0)?.length > 0}
               >
                 <img
                   src="../src/assets/like.svg"
@@ -133,21 +132,16 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               className="fixed flex justify-center items-center flex-col py-4 w-[400px] top-1/2 right-1/2 bg-[#ffff] transform translate-x-1/2 -translate-y-1/2 animate-wiggle z-50 rounded-lg drop-shadow-none"
               style={{ minWidth: "200px" }}
             >
-              <LikesCommentsModal
-                likesArray={likesArray}
-                adminUser={adminUser}
-              />
+              <LikeListModal likesArray={likesArray} adminUser={adminUser} />
             </Dialog.Content>
           </Dialog.Root>
 
           {/* comment view */}
-          <Dialog.Root>
-            <button>
-              <span className="text-[14px] font-light text-font_light_gray">
-                {commentsCount} comments
-              </span>
-            </button>
-          </Dialog.Root>
+          <div>
+            <span className="text-[14px] font-light text-font_light_gray">
+              {commentsCount} comments
+            </span>
+          </div>
         </div>
 
         {/* like and comment button */}

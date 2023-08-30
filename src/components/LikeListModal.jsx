@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
-import img from "../assets/profile.jpg";
 import { useGetUsers } from "../hooks/useGetUsers";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import "react-activity/dist/Dots.css";
 import { Dots } from "react-activity";
 
-const LikesCommentsModal = ({ likesArray, adminUser }) => {
+const LikeListModal = ({ likesArray, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
 
   const { getUsers, isLoading, error, users: allUsers } = useGetUsers();
@@ -94,4 +93,4 @@ const LikesCommentsModal = ({ likesArray, adminUser }) => {
   );
 };
 
-export default LikesCommentsModal;
+export default LikeListModal;
