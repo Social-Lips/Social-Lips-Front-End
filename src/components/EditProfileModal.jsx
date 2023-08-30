@@ -7,8 +7,9 @@ import "react-activity/dist/Spinner.css";
 import { Spinner } from "react-activity";
 
 import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
-const EditProfileModal = ({ user, onClose }) => {
+const EditProfileModal = ({ user }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
@@ -20,8 +21,9 @@ const EditProfileModal = ({ user, onClose }) => {
   const [coverPic, setCoverPic] = useState();
 
   const { user: adminUser } = useAuthContext();
-  const { updateUser, isLoading, result } = useUpdateUser();
+  const { updateUser, isLoading, result, error } = useUpdateUser();
 
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     await updateUser(
       adminUser._id,
@@ -44,11 +46,16 @@ const EditProfileModal = ({ user, onClose }) => {
     setCoverPic(e.target.files[0]);
   };
 
-  const notify = () => result && toast.success(result) && onClose();
+  const notifySuccess = (message) => toast.success(message);
+  const notifyError = (message) => toast.error(message);
 
   useEffect(() => {
-    notify();
-  }, [result]);
+    result && notifySuccess("Update Successfully");
+    error && notifyError("Can't Update");
+    setTimeout(() => {
+      result && navigate("/");
+    }, 1000);
+  }, [result, error]);
 
   return (
     <>

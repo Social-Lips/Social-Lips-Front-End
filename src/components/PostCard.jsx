@@ -41,7 +41,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
     await likeDislike(post?._id, adminUser._id);
   };
   return (
-    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2">
+    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg mb-2">
       {/* image div */}
       <div className="h-[55px] w-[55px] flex">
         <img

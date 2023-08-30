@@ -44,14 +44,13 @@ export const useUpdateUser = () => {
     })
       .then((res) => {
         setIsLoading(false);
-        setResult("Update Successfully");
+        setResult(res.data);
       })
       .catch((err) => {
         setIsLoading(false);
-        setResult("Can't Update");
         setError(err);
       });
   };
 
-  return { updateUser, isLoading, error, result, setResult };
+  return { updateUser, isLoading, error, result };
 };

@@ -46,7 +46,7 @@ const UploadCard = ({ user, setAllPosts, setIsUploading, setNewPost }) => {
   }, [result]);
 
   return (
-    <div className="flex h-[245px] bg-background_light_blue px-5 py-4 rounded-lg justify-between">
+    <div className="flex h-[245px] bg-background_light_blue px-5 py-4 rounded-lg justify-between mb-2">
       <Toaster
         toastOptions={{
           duration: 5000,

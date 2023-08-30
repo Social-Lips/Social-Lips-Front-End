@@ -18,6 +18,7 @@ export const useGetUser = () => {
       .then((res) => {
         setIsLoading(false);
         setUser(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         setIsLoading(false);
