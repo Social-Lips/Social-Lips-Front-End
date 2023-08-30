@@ -32,7 +32,9 @@ const ProfileHeader = ({ paramsUser }) => {
   };
 
   const closeDialog = () => {
-    setIsDialogOpen(false);
+    setTimeout(() => {
+      setIsDialogOpen(false);
+    }, [2500]);
   };
 
   const buttonHandle = async (paramsId, userId, e) => {

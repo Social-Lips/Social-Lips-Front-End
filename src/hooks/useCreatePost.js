@@ -5,10 +5,12 @@ export const useCreatePost = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [newPost, setNewPost] = useState(null);
+  const [result, setResult] = useState(null);
 
   const createPost = async (user_id, description, file, postType) => {
     setIsLoading(true);
     setError(null);
+    setResult(null);
 
     const frmData = new FormData();
     frmData.append("file", file);
@@ -24,16 +26,15 @@ export const useCreatePost = () => {
     })
       .then((res) => {
         setIsLoading(false);
-        console.log(res.data);
         setNewPost(res.data);
+        setResult("Upload Successfully");
       })
       .catch((err) => {
         setIsLoading(false);
         setError(err);
-        console.log(err);
-        alert("Error");
+        setResult("Can't Uploaded");
       });
   };
 
-  return { createPost, newPost, isLoading, error };
+  return { createPost, newPost, isLoading, error, result };
 };

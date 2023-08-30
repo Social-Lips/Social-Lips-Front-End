@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { useUpdateUser } from "../hooks/useUpdateUser";
-import { useParams } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 import "react-activity/dist/Spinner.css";
@@ -21,7 +20,7 @@ const EditProfileModal = ({ user, onClose }) => {
   const [coverPic, setCoverPic] = useState();
 
   const { user: adminUser } = useAuthContext();
-  const { updateUser, isLoading, error, result, setResult } = useUpdateUser();
+  const { updateUser, isLoading, result } = useUpdateUser();
 
   const handleSubmit = async () => {
     await updateUser(
@@ -45,7 +44,7 @@ const EditProfileModal = ({ user, onClose }) => {
     setCoverPic(e.target.files[0]);
   };
 
-  const notify = () => result && toast.success(result);
+  const notify = () => result && toast.success(result) && onClose();
 
   useEffect(() => {
     notify();

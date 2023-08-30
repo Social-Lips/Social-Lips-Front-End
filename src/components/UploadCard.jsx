@@ -4,18 +4,19 @@ import { useCreatePost } from "../hooks/useCreatePost";
 import dummyProfileImage from "../assets/dummy-profile.jpeg";
 import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
+import { Toaster, toast } from "react-hot-toast";
 
 const videoType = [
   { value: "Sign", label: "Sign Language video" },
   { value: "Voice", label: "Voice Language video" },
 ];
 
-const UploadCard = ({ user, setAllPosts, setIsUploading }) => {
+const UploadCard = ({ user, setAllPosts, setIsUploading, setNewPost }) => {
   const [description, setDescription] = useState("");
   const [file, setFile] = useState();
   const [postType, setPostType] = useState("");
 
-  const { createPost, newPost, isLoading } = useCreatePost();
+  const { createPost, newPost, isLoading, result, error } = useCreatePost();
 
   function handleFile(e) {
     setFile(e.target.files[0]);
@@ -27,16 +28,30 @@ const UploadCard = ({ user, setAllPosts, setIsUploading }) => {
     await createPost(user._id, description, file, postType);
   };
 
+  const notify = () =>
+    (error && toast.error(result)) || (result && toast.success(result));
+
   useEffect(() => {
-    setAllPosts((prev) => [newPost, ...prev]);
+    // setAllPosts((prev) => [newPost, ...prev]);
+    setNewPost(newPost);
+    setIsUploading(null);
   }, [newPost]);
 
   useEffect(() => {
     setIsUploading(isLoading);
   }, [isLoading]);
 
+  useEffect(() => {
+    notify();
+  }, [result]);
+
   return (
     <div className="flex h-[245px] bg-background_light_blue px-5 py-4 rounded-lg justify-between">
+      <Toaster
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
       {/* image div */}
       <div className="h-[55px] w-[55px] flex">
         <img

@@ -30,6 +30,7 @@ const Feed = () => {
   } = useGetUsers();
 
   const [allPosts, setAllPosts] = useState(posts);
+  const [newPost, setNewPost] = useState();
   const [isUploading, setIsUploading] = useState(null);
 
   useEffect(() => {
@@ -76,7 +77,11 @@ const Feed = () => {
           user={user[0]}
           setAllPosts={setAllPosts}
           setIsUploading={setIsUploading}
+          setNewPost={setNewPost}
         />
+        {newPost && (
+          <PostCard post={newPost} postOwner={user[0]} adminUser={user[0]} />
+        )}
         {isUploading && <PostUploadingAnimation />}
         {allPosts &&
           allPosts.map((post, index) => (
