@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
 import axios from "axios";
-import { useParams } from "react-router-dom";
 
 export const useLikeDislike = () => {
   const [error, setError] = useState(null);

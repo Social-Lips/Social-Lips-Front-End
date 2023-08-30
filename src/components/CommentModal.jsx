@@ -7,7 +7,12 @@ import { useGetComments } from "../hooks/useGetComments";
 import "react-activity/dist/Dots.css";
 import { Dots } from "react-activity";
 
-export const CommentModal = ({ postId, userId, adminUser }) => {
+export const CommentModal = ({
+  postId,
+  userId,
+  adminUser,
+  setCommentsCount,
+}) => {
   const { addComment, comment, loading: addingComment } = useAddComment();
   const {
     getComments,
@@ -36,6 +41,10 @@ export const CommentModal = ({ postId, userId, adminUser }) => {
   useEffect(() => {
     _getComments();
   }, [addingComment]);
+
+  useEffect(() => {
+    comment && setCommentsCount((prev) => prev + 1);
+  }, [comment]);
 
   return (
     <section className="w-full">
