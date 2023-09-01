@@ -24,8 +24,6 @@ const PostCard = ({ post, postOwner, adminUser }) => {
 
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
-  const test = ["a", "deshan"];
-
   useEffect(() => {
     // Update the likes state when the likeValue changes
     if (likeValue !== null && likeValue === "liked") {
@@ -38,14 +36,14 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   }, [likeValue]);
 
   const handleLike = async () => {
-    await likeDislike(post?._id, adminUser._id);
+    await likeDislike(post?.post_id, adminUser._id);
   };
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg mb-2">
       {/* image div */}
       <div className="h-[55px] w-[55px] flex">
         <img
-          src={postOwner?.profilePicture || dummyProfileImage}
+          src={post?.profilePicture || dummyProfileImage}
           height={55}
           width={55}
           className="object-cover h-[55px] w-[55px] rounded-full "
@@ -56,7 +54,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
         {/* name and update date */}
         <div className="leading-6">
           <h1 className="font-bold text-[24px] text-white">
-            {postOwner?.first_name} <span>{postOwner?.last_name}</span>
+            {post?.first_name} <span>{post?.last_name}</span>
           </h1>
           <p className="text-font_light_gray text-[12px] font-thin">
             {formatDistanceToNow(new Date(post?.createdAt), {
@@ -158,7 +156,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               <>
                 <img
                   src={
-                    !likesArray.includes(adminUserId._id)
+                    !likesArray?.includes(adminUserId._id)
                       ? "../src/assets/outlineLike.svg"
                       : "../src/assets/like.svg"
                   }
@@ -190,7 +188,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               style={{ minWidth: "300px" }}
             >
               <CommentModal
-                postId={post._id}
+                postId={post.post_id}
                 userId={adminUserId._id}
                 adminUser={adminUser}
                 setCommentsCount={setCommentsCount}

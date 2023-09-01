@@ -13,10 +13,17 @@ import { useGetUsers } from "../hooks/useGetUsers";
 import { useGetUser } from "../hooks/useGetUser";
 import PostUploadingAnimation from "./PostUploadingAnimation";
 import { filteringUnfollowUsersId } from "../utils/filteringUnfollowUsersId";
+import { useGetTimeLinePosts } from "../hooks/useGetTimeLinePosts";
+import Loader from "./Loader";
 
 const Feed = () => {
   const { user: adminUser } = useAuthContext();
   const { getPosts, isLoading, error, posts } = useGetPosts();
+  const {
+    getTimelinePosts,
+    timelinePosts,
+    isLoading: timelinePostsLoading,
+  } = useGetTimeLinePosts();
   const {
     getUser,
     user,
@@ -37,6 +44,7 @@ const Feed = () => {
     getAllPosts();
     getAllUsers();
     _getUser();
+    _getTimelinePosts();
   }, []);
 
   useEffect(() => {
@@ -45,6 +53,9 @@ const Feed = () => {
 
   const getAllPosts = async () => {
     await getPosts(adminUser._id);
+  };
+  const _getTimelinePosts = async () => {
+    await getTimelinePosts(adminUser._id);
   };
   const _getUser = async () => {
     await getUser(adminUser._id);
@@ -83,8 +94,11 @@ const Feed = () => {
           <PostCard post={newPost} postOwner={user[0]} adminUser={user[0]} />
         )}
         {isUploading && <PostUploadingAnimation />}
-        {allPosts &&
-          allPosts.map((post, index) => (
+
+        {timelinePostsLoading && <Loader />}
+
+        {timelinePosts &&
+          timelinePosts.map((post, index) => (
             <PostCard
               post={post}
               postOwner={user[0]}
