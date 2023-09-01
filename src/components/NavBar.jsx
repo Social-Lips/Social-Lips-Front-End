@@ -5,6 +5,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { Link } from "react-router-dom";
 import { useGetUser } from "../hooks/useGetUser";
 import { useEffect } from "react";
+import dummyProfileImage from "../assets/dummy-profile.jpeg";
 
 const NavBar = () => {
   const { logout } = useLogOut();
@@ -55,7 +56,7 @@ const NavBar = () => {
           <Dialog.Trigger>
             <div className="h-[45px] w-[45px] flex cursor-pointer">
               <img
-                src={user[0]?.profilePicture}
+                src={user[0]?.profilePicture || dummyProfileImage}
                 height={45}
                 width={45}
                 className="rounded-full ml-[2px] object-cover border-2 border-button_blue"
