@@ -6,17 +6,33 @@ import { Spinner } from "react-activity";
 import "react-activity/dist/Spinner.css";
 import { Toaster, toast } from "react-hot-toast";
 
+import { storage } from "../firebase";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { v4 } from "uuid";
+
 const videoType = [
   { value: "Sign", label: "Sign Language video" },
   { value: "Voice", label: "Voice Language video" },
 ];
 
-const UploadCard = ({ user, setAllPosts, setIsUploading, setNewPost }) => {
+const UploadCard = ({
+  user,
+  setAllPosts,
+  setIsUploading,
+  setNewPost,
+  setUploadProgress,
+}) => {
   const [description, setDescription] = useState("");
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(null);
   const [postType, setPostType] = useState("");
 
-  const { createPost, newPost, isLoading, result, error } = useCreatePost();
+  const { createPost, newPost, isLoading, result, error, setIsLoading } =
+    useCreatePost();
 
   function handleFile(e) {
     setFile(e.target.files[0]);
@@ -24,8 +40,36 @@ const UploadCard = ({ user, setAllPosts, setIsUploading, setNewPost }) => {
     setPostType(_fileType.split("/")[0]);
   }
 
-  const handleUpload = async () => {
-    await createPost(user._id, description, file, postType);
+  const handleUpload = async (downloadURL) => {
+    await createPost(user._id, description, downloadURL, postType);
+    setDescription("");
+    setFile();
+    setPostType("");
+  };
+
+  const uploadImage = () => {
+    if (!file) return;
+    setIsLoading(true);
+    const imgRef = ref(storage, `test/${v4()}`);
+    const uploadTask = uploadBytesResumable(imgRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+        setIsLoading(false);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          handleUpload(downloadURL);
+        });
+      }
+    );
   };
 
   const notify = () =>
@@ -70,7 +114,6 @@ const UploadCard = ({ user, setAllPosts, setIsUploading, setNewPost }) => {
           type="text"
           className="h-[55px] w-[560px] justify-center items-center rounded-lg bg-input_box_gray text-white text-[20px] font-extralight border-none mb-3"
         />
-
         <Select
           className="basic-single"
           classNamePrefix="select"
@@ -120,7 +163,8 @@ const UploadCard = ({ user, setAllPosts, setIsUploading, setNewPost }) => {
 
           {/* 3 */}
           <button
-            onClick={handleUpload}
+            disabled={!file}
+            onClick={uploadImage}
             className="flex justify-center gap-x-2 items-center h-[50px] w-[160px] border-[1px] rounded-full border-none text-[16p18] font-semibold text-black bg-white"
           >
             {isLoading ? (

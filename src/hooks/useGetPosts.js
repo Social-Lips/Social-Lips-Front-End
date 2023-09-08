@@ -3,7 +3,7 @@ import { useState } from "react";
 
 export const useGetPosts = () => {
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(null);
   const [posts, setPosts] = useState("");
 
   const getPosts = async (user_id) => {

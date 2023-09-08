@@ -31,7 +31,6 @@ export const useGetTimeLinePosts = () => {
         // Sort the posts by createdAt in ascending order
         formattedData.sort((a, b) => b.createdAt - a.createdAt);
 
-        console.log(formattedData);
         setTimelinePosts(formattedData);
       })
       .catch((err) => {

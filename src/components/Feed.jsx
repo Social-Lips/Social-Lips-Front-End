@@ -15,6 +15,7 @@ import PostUploadingAnimation from "./PostUploadingAnimation";
 import { filteringUnfollowUsersId } from "../utils/filteringUnfollowUsersId";
 import { useGetTimeLinePosts } from "../hooks/useGetTimeLinePosts";
 import Loader from "./Loader";
+import ProgressTracker from "./ProgressTracker";
 
 const Feed = () => {
   const { user: adminUser } = useAuthContext();
@@ -39,6 +40,7 @@ const Feed = () => {
   const [allPosts, setAllPosts] = useState(posts);
   const [newPost, setNewPost] = useState();
   const [isUploading, setIsUploading] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   useEffect(() => {
     getAllPosts();
@@ -64,7 +66,7 @@ const Feed = () => {
     await getUsers(adminUser._id);
   };
   return (
-    <div className="pt-[60px] px-4 flex justify-center gap-x-2">
+    <div className="pt-[60px] px-4 flex justify-center gap-x-2 relative">
       {/* left column */}
       <div className="h-[90vh] w-[380px] gap-y-2 flex flex-col relative">
         {/* profile card */}
@@ -89,13 +91,16 @@ const Feed = () => {
           setAllPosts={setAllPosts}
           setIsUploading={setIsUploading}
           setNewPost={setNewPost}
+          setUploadProgress={setUploadProgress}
         />
+        {isUploading && <ProgressTracker progressValue={uploadProgress} />}
+
+        {timelinePostsLoading && <Loader />}
+
         {newPost && (
           <PostCard post={newPost} postOwner={user[0]} adminUser={user[0]} />
         )}
         {isUploading && <PostUploadingAnimation />}
-
-        {timelinePostsLoading && <Loader />}
 
         {timelinePosts &&
           timelinePosts.map((post, index) => (

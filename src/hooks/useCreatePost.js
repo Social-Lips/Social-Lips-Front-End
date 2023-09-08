@@ -7,13 +7,13 @@ export const useCreatePost = () => {
   const [newPost, setNewPost] = useState(null);
   const [result, setResult] = useState(null);
 
-  const createPost = async (user_id, description, file, postType) => {
+  const createPost = async (user_id, description, img_url, postType) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
 
     const frmData = new FormData();
-    frmData.append("file", file);
+    frmData.append("img_url", img_url);
     frmData.append("user_id", user_id);
     frmData.append("description", description);
     frmData.append("postType", postType);
@@ -36,5 +36,5 @@ export const useCreatePost = () => {
       });
   };
 
-  return { createPost, newPost, isLoading, error, result };
+  return { createPost, newPost, isLoading, error, result, setIsLoading };
 };

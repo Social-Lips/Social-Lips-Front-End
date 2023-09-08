@@ -35,7 +35,7 @@ const FollowingCard = ({ adminUser }) => {
   }, [resultUserId]);
 
   return (
-    <div className="max-h-full bg-background_light_blue rounded-lg overflow-y-scroll py-6 px-4">
+    <div className="max-h-full  bg-background_light_blue rounded-lg overflow-y-scroll py-6 px-4 sticky top-[8vh]">
       <h1 className="font-semibold text-[24px] text-white pb-2">Following</h1>
 
       {allUsers &&
