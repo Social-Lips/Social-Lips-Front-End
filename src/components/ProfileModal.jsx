@@ -54,7 +54,7 @@ const ProfileModal = ({ handleClick, user }) => {
       </Link>
 
       {/* ------ */}
-      <div className="w-full bg-font_light_gray h-[0.1px] my-7" />
+      <div className="w-full h-[1px] bg-input_box_gray my-7" />
 
       {/* ------------- */}
       <div className="flex gap-y-4 flex-col">

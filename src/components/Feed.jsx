@@ -16,6 +16,7 @@ import { filteringUnfollowUsersId } from "../utils/filteringUnfollowUsersId";
 import { useGetTimeLinePosts } from "../hooks/useGetTimeLinePosts";
 import Loader from "./Loader";
 import ProgressTracker from "./ProgressTracker";
+import UploadCard2 from "./UploadCard2";
 
 const Feed = () => {
   const { user: adminUser } = useAuthContext();
@@ -93,6 +94,7 @@ const Feed = () => {
           setNewPost={setNewPost}
           setUploadProgress={setUploadProgress}
         />
+        <UploadCard2 user={user[0]} />
         {isUploading && <ProgressTracker progressValue={uploadProgress} />}
 
         {timelinePostsLoading && <Loader />}
