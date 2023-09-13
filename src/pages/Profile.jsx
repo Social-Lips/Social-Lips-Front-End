@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import ProfileHeader from "../components/ProfileHeader";
 import ProfileBody from "../components/ProfileBody";
-import { useAuthContext } from "../hooks/useAuthContext";
 import { useGetPosts } from "../hooks/useGetPosts";
 import { useParams } from "react-router-dom";
 import { useGetUser } from "../hooks/useGetUser";

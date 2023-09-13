@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useGetUser } from "../hooks/useGetUser";
 import { useEffect } from "react";
 import dummyProfileImage from "../assets/dummy-profile.jpeg";
+import ProfileModal from "./ProfileModal";
 
 const NavBar = () => {
   const { logout } = useLogOut();
@@ -64,61 +65,8 @@ const NavBar = () => {
             </div>
           </Dialog.Trigger>
         </div>
-        <Dialog.Content className="fixed flex justify-center items-center p-3 top-[8vh] right-[16px] bg-background_light_blue rounded-3xl shadow-2xl shadow-black duration-500">
-          <div className="bg-input_box_gray w-[350px] rounded-3xl flex flex-col">
-            {/* ---------- */}
-            <div className="flex items-center px-5 pt-5">
-              <div className="h-[55px] w-[55px] flex mr-4">
-                <img
-                  src={user[0]?.profilePicture}
-                  height={55}
-                  width={55}
-                  className="object-cover rounded-full border-2 border-button_blue"
-                />
-              </div>
-              <div className="flex flex-col leading-4">
-                <span className="text-[16px] font-normal text-white">
-                  {user[0]?.first_name} <span>{user[0]?.last_name}</span>
-                </span>
-                <span className="text-[12px] font-thin text-white">
-                  {user[0]?.email}
-                </span>
-              </div>
-            </div>
-            {/* ----- */}
-            <Link
-              to={`/profile/${user[0]?._id}`}
-              className="flex justify-center items-center px-5 py-2"
-            >
-              <div className="h-[55px] w-[55px] flex mr-4" />
-              <button className="text-[12px] font-normal text-white border-[0.3px] border-white w-full flex justify-center items-center py-2 rounded-lg">
-                Edit your Account
-              </button>
-            </Link>
-
-            {/* ------ */}
-            <div className="w-full bg-font_light_gray h-[0.3px]" />
-
-            {/* ------------- */}
-            <button
-              onClick={handleClick}
-              className="flex items-center rounded-b-3xl px-5 py-2 hover:bg-background_light_blue duration-300"
-            >
-              <div className="h-[55px] w-[55px] flex mr-4 justify-center items-center">
-                <img
-                  src="../src/assets/signout.svg"
-                  height={35}
-                  width={35}
-                  className="object-contain rounded-full"
-                />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[16px] font-normal text-white">
-                  Sign out of Account
-                </span>
-              </div>
-            </button>
-          </div>
+        <Dialog.Content className="fixed flex justify-center items-center top-[8vh] right-[16px] shadow-2xl shadow-black duration-500">
+          <ProfileModal handleClick={handleClick} user={user} />
         </Dialog.Content>
       </Dialog.Root>
     </nav>
