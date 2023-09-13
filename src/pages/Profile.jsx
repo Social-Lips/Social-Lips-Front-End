@@ -6,6 +6,7 @@ import { useGetPosts } from "../hooks/useGetPosts";
 import { useParams } from "react-router-dom";
 import { useGetUser } from "../hooks/useGetUser";
 import Loader from "../components/Loader";
+import ProfileHeaderAnimation from "../components/ProfileHeaderAnimation";
 
 const Profile = () => {
   const { getPosts, isLoading, error, posts } = useGetPosts();
@@ -33,7 +34,12 @@ const Profile = () => {
   return (
     <main className="max-w-[1100px] pt-[8vh] mx-auto">
       {/* profile screen header */}
-      {!userIsLoading && <ProfileHeader paramsUser={user[0]} />}
+      {!userIsLoading ? (
+        <ProfileHeader paramsUser={user[0]} />
+      ) : (
+        <ProfileHeaderAnimation />
+      )}
+
       {/* gray color line */}
       <div className="w-full h-[1px] bg-input_box_gray mt-[50px]" />
 
