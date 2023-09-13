@@ -43,14 +43,14 @@ const UploadCard = ({
   const handleUpload = async (downloadURL) => {
     await createPost(user._id, description, downloadURL, postType);
     setDescription("");
-    setFile();
+    setFile(null);
     setPostType("");
   };
 
   const uploadImage = () => {
     if (!file) return;
     setIsLoading(true);
-    const imgRef = ref(storage, `test/${v4()}`);
+    const imgRef = ref(storage, `posts/${postType}/${v4()}`);
     const uploadTask = uploadBytesResumable(imgRef, file);
 
     uploadTask.on(

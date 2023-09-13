@@ -14,14 +14,25 @@ import { CommentModal } from "./CommentModal";
 import envtt from "../assets/subs/en.vtt?url";
 import LikeListModal from "./LikeListModal";
 
+import "vidstack/styles/defaults.css";
+import "vidstack/styles/community-skin/video.css";
+
+import {
+  MediaCommunitySkin,
+  MediaOutlet,
+  MediaPlayer,
+  MediaPoster,
+} from "@vidstack/react";
+import { isVideoProvider, isHTMLVideoElement, isHLSProvider } from "vidstack";
+
 const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
 
   const [likes, setLikes] = useState(post?.likes?.length);
   const [commentsCount, setCommentsCount] = useState(post?.comments?.length);
-
+  const sub = post?.subtitle_url;
   const [likesArray, setLikesArray] = useState(post?.likes);
-
+  const videoUrl = post?.img_url;
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   useEffect(() => {
@@ -38,6 +49,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   const handleLike = async () => {
     await likeDislike(post?.post_id, adminUser._id);
   };
+
   return (
     <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg mb-2">
       {/* image div */}
@@ -71,7 +83,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
         </div>
 
         {/* post image or video*/}
-        <div className="h-[300px]  flex">
+        <div>
           {post?.postType === "image" ? (
             <img
               src={post?.img_url}
@@ -80,28 +92,29 @@ const PostCard = ({ post, postOwner, adminUser }) => {
               className="object-cover rounded-lg"
             />
           ) : (
-            <ReactPlayer
-              controls={true}
-              url={post?.img_url}
-              className="react-player"
-              width="100%"
-              height="100%"
-              config={{
-                file: {
-                  attributes: {
-                    crossOriginIsolated: "anonymus",
-                  },
-                  tracks: [
-                    {
-                      kind: "subtitles",
-                      src: envtt,
-                      srcLang: "tr",
-                      default: true,
-                    },
-                  ],
-                },
-              }}
-            />
+            <>
+              <MediaPlayer
+                title="Sprite Fight"
+                src={{ src: videoUrl, type: "video/mp4" }}
+                poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
+                // thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
+                aspectRatio={16 / 9}
+                crossorigin="anonymus"
+                load="visible"
+              >
+                <MediaOutlet>
+                  <MediaPoster alt="Girl walks into sprite gnomes around her friend on a campfire in danger!" />
+                  <track
+                    src={sub}
+                    label="English"
+                    srcLang="en-US"
+                    kind="subtitles"
+                    default
+                  />
+                </MediaOutlet>
+                <MediaCommunitySkin />
+              </MediaPlayer>
+            </>
           )}
         </div>
 

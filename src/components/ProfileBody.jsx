@@ -13,7 +13,20 @@ const ProfileBody = ({ posts, user }) => {
   const { getUser, user: adminUser } = useGetUser();
 
   const [isActive, setIsActive] = useState("Posts");
+  const [currentPostList, setCurrentPostList] = useState(posts);
 
+  console.log(posts);
+
+  const handlePostList = (selectedItem) => {
+    setIsActive(selectedItem);
+    if (selectedItem == "Photos") {
+      setCurrentPostList(posts.filter((item) => item.postType === "image"));
+    } else if (selectedItem == "Videos") {
+      setCurrentPostList(posts.filter((item) => item.postType === "video"));
+    } else if (selectedItem === "Posts") {
+      setCurrentPostList(posts);
+    }
+  };
   const _getUser = async () => {
     await getUser(adminUserId._id);
   };
@@ -42,7 +55,7 @@ const ProfileBody = ({ posts, user }) => {
                 ? "text-[16px] text-[#9A9A9A] cursor-pointer"
                 : "text-white"
             }
-            onClick={() => setIsActive(item)}
+            onClick={() => handlePostList(item)}
           >
             {item}
           </button>
@@ -66,26 +79,18 @@ const ProfileBody = ({ posts, user }) => {
         </div>
 
         {/* right side cards */}
-        {isActive === "Posts" ? (
-          <div className="w-full">
-            {/* <UploadCard user={user} /> */}
-            {posts &&
-              posts.map((post, index) => (
-                <PostCard
-                  post={post}
-                  postOwner={user}
-                  adminUser={adminUser[0]}
-                  key={index}
-                />
-              ))}
-          </div>
-        ) : isActive === "Photos" ? (
-          <>Photo</>
-        ) : isActive === "Videos" ? (
-          <>Video</>
-        ) : (
-          <>About</>
-        )}
+        <div className="w-full">
+          {/* <UploadCard user={user} /> */}
+          {currentPostList &&
+            currentPostList.map((post, index) => (
+              <PostCard
+                post={post}
+                postOwner={user}
+                adminUser={adminUser[0]}
+                key={index}
+              />
+            ))}
+        </div>
       </section>
     </main>
   );
