@@ -54,7 +54,7 @@ const UploadCard2 = ({ user }) => {
       <Dialog.Overlay className="bg-black/60 h-screen w-screen fixed inset-0 z-40" />
 
       <Dialog.Content
-        className="fixed flex justify-center items-center flex-col py-5 px-8 w-[490px] top-1/2 right-1/2 bg-background_dark_blue transform translate-x-1/2 -translate-y-1/2 z-50 rounded-lg"
+        className="fixed flex justify-center items-center flex-col w-[490px] top-1/2 right-1/2 bg-background_dark_blue transform translate-x-1/2 -translate-y-1/2 z-50 rounded-lg"
         style={{ minWidth: "450px" }}
       >
         <UploadCardModal />
