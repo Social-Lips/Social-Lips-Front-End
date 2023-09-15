@@ -87,14 +87,13 @@ const Feed = () => {
 
       {/* middle column */}
       <div className="h-[473px] w-[680px] flex flex-col">
-        <UploadCard
+        <UploadCard2
           user={user[0]}
           setAllPosts={setAllPosts}
           setIsUploading={setIsUploading}
           setNewPost={setNewPost}
           setUploadProgress={setUploadProgress}
         />
-        <UploadCard2 user={user[0]} />
         {isUploading && <ProgressTracker progressValue={uploadProgress} />}
 
         {timelinePostsLoading && <Loader />}

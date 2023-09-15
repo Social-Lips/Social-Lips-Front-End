@@ -1,11 +1,89 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import dummyProfileImage from "../assets/dummy-profile.jpeg";
 import * as Dialog from "@radix-ui/react-dialog";
 import UploadCardModal from "./UploadCardModal";
+import { useCreatePost } from "../hooks/useCreatePost";
+import { storage } from "../firebase";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
+import { v4 } from "uuid";
+import { Toaster, toast } from "react-hot-toast";
 
-const UploadCard2 = ({ user }) => {
+const UploadCard2 = ({
+  user,
+  setIsUploading,
+  setNewPost,
+  setUploadProgress,
+}) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [description, setDescription] = useState("");
+  const [file, setFile] = useState(null);
+  const [postType, setPostType] = useState("");
+
+  const { createPost, newPost, isLoading, result, error, setIsLoading } =
+    useCreatePost();
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
+  const handleUpload = async (downloadURL) => {
+    await createPost(user._id, description, downloadURL, postType);
+  };
+
+  const uploadImage = () => {
+    if (!file) return;
+    closeDialog();
+    setIsLoading(true);
+    const imgRef = ref(storage, `posts/${postType}/${v4()}`);
+    const uploadTask = uploadBytesResumable(imgRef, file);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        setUploadProgress(progress);
+      },
+      (error) => {
+        console.log(error);
+        setIsLoading(false);
+      },
+      () => {
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          handleUpload(downloadURL);
+        });
+      }
+    );
+  };
+
+  const notify = () =>
+    (error && toast.error(result)) || (result && toast.success(result));
+
+  useEffect(() => {
+    setNewPost(newPost);
+    setIsUploading(null);
+  }, [newPost]);
+
+  useEffect(() => {
+    setIsUploading(isLoading);
+  }, [isLoading]);
+
+  useEffect(() => {
+    result && notify();
+  }, [result]);
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Toaster
+        toastOptions={{
+          duration: 5000,
+        }}
+      />
       <Dialog.Trigger>
         <div className="flex bg-background_light_blue px-5 py-4 rounded-lg justify-between mb-2 cursor-pointer">
           {/* image div */}
@@ -57,7 +135,14 @@ const UploadCard2 = ({ user }) => {
         className="fixed flex justify-center items-center flex-col w-[490px] top-1/2 right-1/2 bg-background_dark_blue transform translate-x-1/2 -translate-y-1/2 z-50 rounded-lg"
         style={{ minWidth: "450px" }}
       >
-        <UploadCardModal />
+        <UploadCardModal
+          user={user}
+          uploadImageHandler={uploadImage}
+          setDescription={setDescription}
+          setFile={setFile}
+          postType={postType}
+          setPostType={setPostType}
+        />
       </Dialog.Content>
     </Dialog.Root>
   );
