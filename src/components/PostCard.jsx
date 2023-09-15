@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import formatDistanceToNow from "date-fns/formatDistanceToNow";
-import ReactPlayer from "react-player";
 import * as Dialog from "@radix-ui/react-dialog";
+
 import { useLikeDislike } from "../hooks/useLikeDislike";
 import dummyProfileImage from "../assets/dummy-profile.jpeg";
 
@@ -11,7 +11,6 @@ import { Spinner } from "react-activity";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { CommentModal } from "./CommentModal";
 
-import envtt from "../assets/subs/en.vtt?url";
 import LikeListModal from "./LikeListModal";
 
 import "vidstack/styles/defaults.css";
@@ -23,7 +22,7 @@ import {
   MediaPlayer,
   MediaPoster,
 } from "@vidstack/react";
-import { isVideoProvider, isHTMLVideoElement, isHLSProvider } from "vidstack";
+import MoreOptionDropDown from "./MoreOptionDropDown";
 
 const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
@@ -51,17 +50,19 @@ const PostCard = ({ post, postOwner, adminUser }) => {
   };
 
   return (
-    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg mb-2">
+    <div className="flex relative h-fit bg-background_light_blue px-5 py-4 rounded-lg mb-2">
+      {/* option Dot 3 button */}
+      <MoreOptionDropDown adminId={adminUser?._id} userId={post?.user_id} />
+
       {/* image div */}
       <div className="h-[55px] w-[55px] flex">
         <img
           src={post?.profilePicture || dummyProfileImage}
-          height={55}
-          width={55}
+          height={25}
+          width={25}
           className="object-cover h-[55px] w-[55px] rounded-full "
         />
       </div>
-
       <div className=" flex flex-col justify-between w-full gap-y-2 ml-4">
         {/* name and update date */}
         <div className="leading-6">
