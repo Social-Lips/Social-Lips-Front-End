@@ -1,7 +1,7 @@
 import React from "react";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
-const MoreOptionDropDown = ({ adminId, userId }) => {
+const MoreOptionDropDown = ({ adminId, userId, _deletePost }) => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -31,7 +31,10 @@ const MoreOptionDropDown = ({ adminId, userId }) => {
                 />
                 Edit Post
               </DropdownMenu.Item>
-              <DropdownMenu.Item className="group text-[14px] leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white">
+              <DropdownMenu.Item
+                onClick={() => _deletePost()}
+                className="group text-[14px] leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white"
+              >
                 <img
                   src="../src/assets/delete.png"
                   height={20}

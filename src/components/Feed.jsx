@@ -86,7 +86,7 @@ const Feed = () => {
       </div>
 
       {/* middle column */}
-      <div className="h-[473px] w-[680px] flex flex-col">
+      <div className="h-[473px] w-[600px] flex flex-col">
         <UploadCard2
           user={user[0]}
           setAllPosts={setAllPosts}
@@ -115,7 +115,7 @@ const Feed = () => {
       </div>
 
       {/* right column */}
-      <div className="h-[473px] w-[300px]">
+      <div className="h-[473px] w-[380px]">
         <FollowingCard adminUser={user} />
       </div>
     </div>

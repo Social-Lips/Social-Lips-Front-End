@@ -23,16 +23,18 @@ import {
   MediaPoster,
 } from "@vidstack/react";
 import MoreOptionDropDown from "./MoreOptionDropDown";
+import { useDeletePost } from "../hooks/useDeletePost";
 
 const PostCard = ({ post, postOwner, adminUser }) => {
   const { user: adminUserId } = useAuthContext();
+  const { deletePost } = useDeletePost();
+  const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   const [likes, setLikes] = useState(post?.likes?.length);
   const [commentsCount, setCommentsCount] = useState(post?.comments?.length);
   const sub = post?.subtitle_url;
   const [likesArray, setLikesArray] = useState(post?.likes);
   const videoUrl = post?.img_url;
-  const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   useEffect(() => {
     // Update the likes state when the likeValue changes
@@ -49,24 +51,34 @@ const PostCard = ({ post, postOwner, adminUser }) => {
     await likeDislike(post?.post_id, adminUser._id);
   };
 
-  return (
-    <div className="flex relative h-fit bg-background_light_blue px-5 py-4 rounded-lg mb-2">
-      {/* option Dot 3 button */}
-      <MoreOptionDropDown adminId={adminUser?._id} userId={post?.user_id} />
+  const _deletePost = async () => {
+    await deletePost(adminUser?._id, post?.post_id);
+  };
 
-      {/* image div */}
-      <div className="h-[55px] w-[55px] flex">
-        <img
-          src={post?.profilePicture || dummyProfileImage}
-          height={25}
-          width={25}
-          className="object-cover h-[55px] w-[55px] rounded-full "
-        />
-      </div>
-      <div className=" flex flex-col justify-between w-full gap-y-2 ml-4">
+  return (
+    <div className="flex flex-col relative h-fit bg-background_light_blue py-4 rounded-lg mb-2">
+      {/* option Dot 3 button */}
+      <MoreOptionDropDown
+        adminId={adminUser?._id}
+        userId={post?.user_id}
+        _deletePost={_deletePost}
+        // postId={post?.postId}
+      />
+
+      <div className="flex items-center ">
+        {/* image div */}
+        <div className="h-[40px] w-[40px] flex justify-center items-center overflow-hidden rounded-full mx-4">
+          <img
+            src={post?.profilePicture || dummyProfileImage}
+            height={40}
+            width={40}
+            className="object-cover rounded-full"
+          />
+        </div>
+
         {/* name and update date */}
-        <div className="leading-6">
-          <h1 className="font-bold text-[24px] text-white">
+        <div className="leading-none">
+          <h1 className="font-bold text-[16px] text-white mb-1">
             {post?.first_name} <span>{post?.last_name}</span>
           </h1>
           <p className="text-font_light_gray text-[12px] font-thin">
@@ -75,23 +87,33 @@ const PostCard = ({ post, postOwner, adminUser }) => {
             })}
           </p>
         </div>
+      </div>
 
-        {/*description  */}
-        <div className="flex">
-          <p className="text-[16px] text-white leading-5">
-            {post?.description}
-          </p>
-        </div>
+      {/*description  */}
+      <div className="flex ml-4 my-3">
+        <p className="text-[16px] text-white leading-5 font-light">
+          {post?.description}
+        </p>
+      </div>
 
+      <div className="flex flex-col justify-between">
         {/* post image or video*/}
-        <div>
+        <div className="flex justify-center items-center max-h-[400px] max-w-[600px] overflow-hidden">
           {post?.postType === "image" ? (
-            <img
-              src={post?.img_url}
-              // height={300}
-              // width={522}
-              className="object-cover rounded-lg"
-            />
+            <>
+              <img
+                src={post?.img_url}
+                height={400}
+                width={600}
+                className="object-fill blur-2xl scale-150"
+              />
+              <img
+                src={post?.img_url}
+                // height={400}
+                // width={600}
+                className="object-contain absolute max-h-[400px] shadow-md"
+              />
+            </>
           ) : (
             <>
               <MediaPlayer
@@ -120,7 +142,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
         </div>
 
         {/* likes and comment view area */}
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mx-4 my-2">
           {/* like count */}
           <Dialog.Root>
             <Dialog.Trigger>
@@ -156,13 +178,15 @@ const PostCard = ({ post, postOwner, adminUser }) => {
           </div>
         </div>
 
+        <div className="h-[1px] bg-input_box_gray mx-4" />
+
         {/* like and comment button */}
-        <div className="flex justify-between">
+        <div className="flex justify-between w-full">
           {/* like */}
           <button
             disabled={isLoading}
             onClick={handleLike}
-            className="flex justify-center gap-x-2 items-center h-[50px] w-[270px] text-[16px] bg-input_box_gray text-white rounded-lg"
+            className="flex justify-center gap-x-2 items-center h-[45px] w-[50%] text-[16px] text-white rounded-lg"
           >
             {isLoading ? (
               <Spinner size={13} />
@@ -174,8 +198,8 @@ const PostCard = ({ post, postOwner, adminUser }) => {
                       ? "../src/assets/outlineLike.svg"
                       : "../src/assets/like.svg"
                   }
-                  height={25}
-                  width={25}
+                  height={22}
+                  width={22}
                   className="object-contain"
                 />
                 Like
@@ -183,14 +207,16 @@ const PostCard = ({ post, postOwner, adminUser }) => {
             )}
           </button>
 
+          <div className="w-[1px] bg-input_box_gray my-1" />
+
           {/* comment */}
           <Dialog.Root>
-            <Dialog.Trigger>
-              <button className="flex justify-center gap-x-2 items-center h-[50px] w-[270px] text-[16px] bg-input_box_gray text-white rounded-lg">
+            <Dialog.Trigger className="w-[50%]">
+              <button className="flex justify-center gap-x-2 items-center h-[45px] w-full text-[16px]  text-white rounded-lg">
                 <img
                   src="../src/assets/comment.svg"
-                  height={20}
-                  width={20}
+                  height={17}
+                  width={17}
                   className="object-contain"
                 />
                 Comment
@@ -210,6 +236,7 @@ const PostCard = ({ post, postOwner, adminUser }) => {
             </Dialog.Content>
           </Dialog.Root>
         </div>
+        <div className="h-[1px] bg-input_box_gray mx-4" />
       </div>
     </div>
   );

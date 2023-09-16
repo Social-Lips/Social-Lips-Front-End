@@ -19,9 +19,13 @@ const UploadCardModal = ({
   }
   function handleCloseItem() {
     setItemSrc(null);
-    setPostType(null);
+    setPostType("");
     setFile(null);
   }
+
+  useEffect(() => {
+    setPostType("");
+  }, []);
 
   return (
     <div className="p-4 w-full">
@@ -67,12 +71,13 @@ const UploadCardModal = ({
             rows={3}
           />
         </div>
+
         {/* image view box */}
-        <div className="flex h-[220px] relative w-full border-[0.3px] border-input_box_gray rounded-md p-[6px] my-2">
+        <div className="flex h-[220px] relative w-full border-[0.3px] border-input_box_gray rounded-md my-2">
           {/* close button */}
           <div
             onClick={() => handleCloseItem()}
-            className="flex absolute top-3 right-3 h-[20px] w-[20px] justify-center items-center cursor-pointer rounded-full z-10"
+            className="flex absolute top-2 right-3 h-[20px] w-[20px] justify-center items-center cursor-pointer rounded-full z-10"
           >
             <img
               src="../src/assets/close.svg"
@@ -82,13 +87,20 @@ const UploadCardModal = ({
             />
           </div>
           {postType ? (
-            <div className="flex w-full justify-center">
+            <div className="flex w-full items-center justify-center overflow-hidden max-h-[220px] rounded-md">
               {postType === "image" ? (
-                <img
-                  src={itemSrc}
-                  height={400}
-                  className="object-contain rounded-md"
-                />
+                <>
+                  <img
+                    src={itemSrc}
+                    height={400}
+                    className="object-contain blur-2xl scale-150"
+                  />
+                  <img
+                    src={itemSrc}
+                    // height={220}
+                    className="object-contain absolute max-h-[220px]"
+                  />
+                </>
               ) : (
                 <video src={itemSrc} controls width="100%" />
               )}
