@@ -6,6 +6,7 @@ import { useGetComments } from "../hooks/useGetComments";
 
 import "react-activity/dist/Dots.css";
 import { Dots } from "react-activity";
+import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 
 export const CommentModal = ({
   postId,
@@ -59,51 +60,52 @@ export const CommentModal = ({
         </Dialog.Close>
       </div>
 
-      <div className="h-[60vh] overflow-y-scroll px-8 mb-1">
+      <div className="h-[60vh] overflow-y-scroll px-8">
         {/* comments body */}
         {comments?.map((comment, index) => (
-          <div
-            key={index}
-            className="h-auto w-full bg-white px-8 py-3 flex rounded-md mb-1"
-          >
+          <div key={index} className="h-auto w-full py-1 flex">
             {/* image div */}
-            <div className="h-[30px] w-[30px] block relative">
+            <div className="h-[30px] w-[8%] flex justify-center mt-1">
               <img
                 src={comment.commentBy.profilePicture}
                 className="object-fill h-[30px] w-[30px] rounded-full "
               />
             </div>
 
-            <div className="flex flex-col gap-y-2 w-full ml-4">
+            <div className="flex flex-col w-fit p-2 rounded-xl ml-2 bg-background_light_blue">
               {/* name and update date */}
-              <div className="leading-tight">
-                <h1 className="font-bold text-[12px]">
-                  <span>{comment.commentBy.first_name}</span>{" "}
-                  <span>{comment.commentBy.last_name}</span>
+              <div className="">
+                <h1 className="font-medium text-[12px] text-white flex gap-x-2 items-center">
+                  <>
+                    <span>{comment.commentBy.first_name}</span>{" "}
+                    <span>{comment.commentBy.last_name}</span>
+                  </>
+                  <p className="text-font_light_gray text-[10px] font-thin">
+                    {formatDistanceToNow(new Date(comment?.createdAt), {
+                      addSuffix: true,
+                    })}
+                  </p>
                 </h1>
-                <p className="text-font_light_gray text-[10px] font-thin">
-                  {formatDistanceToNow(new Date(comment?.createdAt), {
-                    addSuffix: true,
-                  })}
-                </p>
               </div>
 
               {/*description  */}
-              <div className="flex">
-                <p className="text-[12px] leading-4">{comment?.text}</p>
+              <div className="flex text-white">
+                <p className="text-[12px] font-light">{comment?.text}</p>
               </div>
             </div>
           </div>
         ))}
-        {gettingComments && <Dots size={10} className="text-center" />}
-        {error}
+        {gettingComments && (
+          <Dots color="#ffff" size={10} className="text-center" />
+        )}
+        <span className="text-white">{error}</span>
       </div>
 
       {/* text input */}
-      <div className="h-[95px] w-full px-8">
-        <div className="h-auto bg-white px-8 py-3 flex rounded-md justify-between items-start gap-x-1">
+      <div className="mb-3">
+        <div className="px-8 flex rounded-md justify-between">
           {/* image div */}
-          <div className="h-[30px] w-[50px] flex">
+          <div className="h-[30px] flex">
             <img
               src={adminUser.profilePicture}
               height={30}
@@ -112,22 +114,23 @@ export const CommentModal = ({
             />
           </div>
 
-          <div className="flex flex-col gap-y-2 w-full ml-4">
+          <div className="flex flex-col w-[84%]">
             <textarea
-              rows={4}
+              rows={1}
               type="text"
               onChange={(e) => setCommentText(e.target.value)}
               value={commentText}
-              className="rounded-md border-[0.1px] text-[12px] leading-none"
+              placeholder="Write a comment..."
+              className="rounded-full text-[12px] h-[30px] leading-none bg-background_light_blue border-none resize-none text-white"
             />
           </div>
 
           <button
             onClick={_addComment}
             disabled={!commentText || gettingComments || addingComment}
-            className="bg-background_dark_blue text-white text-[12px] font-bold px-5 py-1 rounded-md"
+            className="bg-button_blue text-white rounded-full w-[30px] h-[30px] flex justify-center items-center"
           >
-            SEND
+            <PaperAirplaneIcon className="h-4 w-4 text-white" />
           </button>
         </div>
       </div>

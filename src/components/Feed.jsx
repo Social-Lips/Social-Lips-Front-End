@@ -38,7 +38,7 @@ const Feed = () => {
     isLoading: allUsersLoading,
   } = useGetUsers();
 
-  const [allPosts, setAllPosts] = useState(posts);
+  const [allPosts, setAllPosts] = useState(timelinePosts);
   const [newPost, setNewPost] = useState();
   const [isUploading, setIsUploading] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -51,8 +51,8 @@ const Feed = () => {
   }, []);
 
   useEffect(() => {
-    setAllPosts(posts);
-  }, [isLoading]);
+    setAllPosts(timelinePosts);
+  }, [timelinePostsLoading]);
 
   const getAllPosts = async () => {
     await getPosts(adminUser._id);
@@ -103,13 +103,14 @@ const Feed = () => {
         )}
         {isUploading && <PostUploadingAnimation />}
 
-        {timelinePosts &&
-          timelinePosts.map((post, index) => (
+        {allPosts &&
+          allPosts?.map((post, index) => (
             <PostCard
               post={post}
               postOwner={user[0]}
               adminUser={user[0]}
               key={index}
+              setAllPosts={setAllPosts}
             />
           ))}
       </div>

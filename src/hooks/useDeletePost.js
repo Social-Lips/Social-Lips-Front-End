@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios"; // You might need to install and configure an HTTP client like axios
 
 export const useDeletePost = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(null);
   const [error, setError] = useState(null);
   const [result, setResult] = useState(null);
 
@@ -31,5 +31,6 @@ export const useDeletePost = () => {
     error,
     result,
     deletePost,
+    setLoading,
   };
 };

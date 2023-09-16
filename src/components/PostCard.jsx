@@ -25,15 +25,20 @@ import {
 import MoreOptionDropDown from "./MoreOptionDropDown";
 import { useDeletePost } from "../hooks/useDeletePost";
 
-const PostCard = ({ post, postOwner, adminUser }) => {
+const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
   const { user: adminUserId } = useAuthContext();
-  const { deletePost } = useDeletePost();
+  const {
+    deletePost,
+    loading: deleteLoading,
+    setLoading: setDeleteLoading,
+  } = useDeletePost();
   const { likeDislike, likeValue, isLoading } = useLikeDislike();
 
   const [likes, setLikes] = useState(post?.likes?.length);
   const [commentsCount, setCommentsCount] = useState(post?.comments?.length);
   const sub = post?.subtitle_url;
   const [likesArray, setLikesArray] = useState(post?.likes);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const videoUrl = post?.img_url;
 
   useEffect(() => {
@@ -47,6 +52,10 @@ const PostCard = ({ post, postOwner, adminUser }) => {
     }
   }, [likeValue]);
 
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   const handleLike = async () => {
     await likeDislike(post?.post_id, adminUser._id);
   };
@@ -57,15 +66,35 @@ const PostCard = ({ post, postOwner, adminUser }) => {
 
   return (
     <div className="flex flex-col relative h-fit bg-background_light_blue py-4 rounded-lg mb-2">
-      {/* option Dot 3 button */}
-      <MoreOptionDropDown
-        adminId={adminUser?._id}
-        userId={post?.user_id}
-        _deletePost={_deletePost}
-        // postId={post?.postId}
-      />
+      <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog.Trigger>
+          {/* option Dot 3 button */}
+          <div className="absolute right-4 top-4 cursor-pointer">
+            <img
+              src="../src/assets/dots.png"
+              height={20}
+              width={20}
+              className="object-cover"
+            />
+          </div>
+        </Dialog.Trigger>
+        <Dialog.Overlay className="bg-black/30 h-screen w-screen fixed inset-0 z-40" />
+        <Dialog.Content className="flex justify-center items-center absolute flex-col w-[200px] py-2 top-7 right-4 bg-background_light_blue transform animate-wiggle z-50 rounded-lg drop-shadow-none">
+          <MoreOptionDropDown
+            adminId={adminUser?._id}
+            userId={post?.user_id}
+            postId={post?.post_id}
+            _deletePost={_deletePost}
+            deleteLoading={deleteLoading}
+            setAllPosts={setAllPosts}
+            closeDialog={closeDialog}
+            setDeleteLoading={setDeleteLoading}
+            // postId={post?.postId}
+          />
+        </Dialog.Content>
+      </Dialog.Root>
 
-      <div className="flex items-center ">
+      <div className="flex items-center">
         {/* image div */}
         <div className="h-[40px] w-[40px] flex justify-center items-center overflow-hidden rounded-full mx-4">
           <img
@@ -222,9 +251,10 @@ const PostCard = ({ post, postOwner, adminUser }) => {
                 Comment
               </button>
             </Dialog.Trigger>
-            <Dialog.Overlay className="bg-black/30 h-screen w-screen fixed inset-0 z-40" />
+            <Dialog.Overlay className=" data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
+
             <Dialog.Content
-              className="fixed flex justify-center items-center flex-col py-4 w-[490px] top-1/2 right-1/2 bg-[#CCD8E0] transform translate-x-1/2 -translate-y-1/2 animate-wiggle z-50 rounded-2xl drop-shadow-none"
+              className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col py-4 w-[490px] top-[50%] left-[50%] bg-background_dark_blue   translate-x-[-50%] translate-y-[-50%] z-50 rounded-2xl drop-shadow-none"
               style={{ minWidth: "300px" }}
             >
               <CommentModal

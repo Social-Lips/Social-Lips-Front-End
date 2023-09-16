@@ -1,63 +1,68 @@
-import React from "react";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+import React, { useEffect } from "react";
+import "react-activity/dist/Spinner.css";
+import { Spinner } from "react-activity";
+import { CheckIcon } from "@heroicons/react/24/outline";
 
-const MoreOptionDropDown = ({ adminId, userId, _deletePost }) => {
+const MoreOptionDropDown = ({
+  adminId,
+  userId,
+  _deletePost,
+  deleteLoading,
+  setAllPosts,
+  postId,
+  closeDialog,
+  setDeleteLoading,
+}) => {
+  useEffect(() => {
+    if (deleteLoading == false) {
+      setAllPosts((prev) => prev.filter((post) => post.post_id != postId));
+      setDeleteLoading(null);
+      closeDialog();
+    }
+  }, [deleteLoading]);
+
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <div className="absolute right-4 top-4 cursor-pointer">
+    <div className="w-full">
+      {adminId === userId ? (
+        <>
+          <button className="group text-[14px] w-full leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white">
+            <img
+              src="../src/assets/edit.png"
+              height={20}
+              width={20}
+              className="object-cover"
+            />
+            Edit Post
+          </button>
+          <button
+            onClick={() => _deletePost()}
+            className="group text-[14px] leading-none w-full rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white"
+          >
+            <img
+              src="../src/assets/delete.png"
+              height={20}
+              width={20}
+              className="object-cover"
+            />
+            Delete Post
+            {deleteLoading && <Spinner size={10} />}
+            {deleteLoading == false && (
+              <CheckIcon className="h-4 w-4 text-white" />
+            )}
+          </button>
+        </>
+      ) : (
+        <div className="group text-[14px] leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white">
           <img
-            src="../src/assets/dots.png"
+            src="../src/assets/report.png"
             height={20}
             width={20}
             className="object-cover"
           />
+          Report Post
         </div>
-      </DropdownMenu.Trigger>
-
-      <DropdownMenu.Portal>
-        <DropdownMenu.Content
-          className="min-w-[220px] bg-background_light_blue shadow-2xl shadow-black rounded-md p-[5px] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
-          sideOffset={5}
-        >
-          {adminId === userId ? (
-            <>
-              <DropdownMenu.Item className="group text-[14px] leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white">
-                <img
-                  src="../src/assets/edit.png"
-                  height={20}
-                  width={20}
-                  className="object-cover"
-                />
-                Edit Post
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
-                onClick={() => _deletePost()}
-                className="group text-[14px] leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white"
-              >
-                <img
-                  src="../src/assets/delete.png"
-                  height={20}
-                  width={20}
-                  className="object-cover"
-                />
-                Delete Post
-              </DropdownMenu.Item>
-            </>
-          ) : (
-            <DropdownMenu.Item className="group text-[14px] leading-none rounded-[3px] flex items-center h-[40px] px-[5px] relative gap-x-4 pl-[15px] select-none outline-none data-[disabled]:pointer-events-none data-[highlighted]:bg-input_box_gray text-white">
-              <img
-                src="../src/assets/report.png"
-                height={20}
-                width={20}
-                className="object-cover"
-              />
-              Report Post
-            </DropdownMenu.Item>
-          )}
-        </DropdownMenu.Content>
-      </DropdownMenu.Portal>
-    </DropdownMenu.Root>
+      )}
+    </div>
   );
 };
 
