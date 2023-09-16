@@ -66,9 +66,9 @@ const ProfileBody = ({ posts, user }) => {
       <div className="w-[260px] h-[1px] bg-input_box_gray" />
 
       {/* body content cards */}
-      <section className="w-full h-fit flex mt-6 justify-between gap-x-4">
+      <section className="w-full h-fit flex mt-6 justify-center gap-x-4">
         {/* left side (Followers) cards */}
-        <div className="">
+        <div className="flex flex-col w-[450px]">
           <ProfileAbout user={user} />
           <FollowYouCard
             cardTitle={"Followers"}
@@ -79,7 +79,7 @@ const ProfileBody = ({ posts, user }) => {
         </div>
 
         {/* right side cards */}
-        <div className="w-full">
+        <div className="h-[473px] w-[600px] flex flex-col">
           {/* <UploadCard user={user} /> */}
           {currentPostList &&
             currentPostList.map((post, index) => (

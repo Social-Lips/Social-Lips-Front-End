@@ -21,7 +21,7 @@ const FollowYouCard = ({ cardTitle, allUsers, filterIdArray, adminUser }) => {
   }, [resultUserId]);
 
   return (
-    <div className=" bg-background_light_blue rounded-lg p-6 w-[380px] sticky top-[8vh]">
+    <div className=" bg-background_light_blue rounded-lg p-6 w-[full] sticky top-[8vh]">
       <h1 className="font-semibold text-[24px] text-white pb-2">{cardTitle}</h1>
       {allUsers &&
         allUsers.map((user, index) => (
