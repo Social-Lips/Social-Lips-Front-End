@@ -26,6 +26,7 @@ import MoreOptionDropDown from "./MoreOptionDropDown";
 import { useDeletePost } from "../hooks/useDeletePost";
 
 const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
+  console.log(post.subtitle_status);
   const { user: adminUserId } = useAuthContext();
   const {
     deletePost,
@@ -101,7 +102,7 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
             src={post?.profilePicture || dummyProfileImage}
             height={40}
             width={40}
-            className="object-cover rounded-full"
+            className="object-cover rounded-full h-full"
           />
         </div>
 
@@ -116,6 +117,14 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
             })}
           </p>
         </div>
+
+        {/* Wrap the last div to move it to the right */}
+        <div className="flex-grow"></div>
+        {post.subtitle_status == "generating" && (
+          <div className="self-baseline mx-12 bg-[#301F11] text-[12px] px-2 py-[2px] text-[#F1A060] rounded-[4px]">
+            Subtitle generating...
+          </div>
+        )}
       </div>
 
       {/*description  */}
@@ -144,29 +153,28 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
               />
             </>
           ) : (
-            <>
-              <MediaPlayer
-                title="Sprite Fight"
-                src={{ src: videoUrl, type: "video/mp4" }}
-                poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
-                // thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
-                aspectRatio={16 / 9}
-                crossorigin="anonymus"
-                load="visible"
-              >
-                <MediaOutlet>
-                  <MediaPoster alt="Girl walks into sprite gnomes around her friend on a campfire in danger!" />
-                  <track
-                    src={sub}
-                    label="English"
-                    srcLang="en-US"
-                    kind="subtitles"
-                    default
-                  />
-                </MediaOutlet>
-                <MediaCommunitySkin />
-              </MediaPlayer>
-            </>
+            <MediaPlayer
+              className="rounded-none"
+              title="Sprite Fight"
+              src={{ src: videoUrl, type: "video/mp4" }}
+              poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
+              // thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
+              aspectRatio={16 / 9}
+              crossorigin="anonymus"
+              load="visible"
+            >
+              <MediaOutlet>
+                <MediaPoster alt="Girl walks into sprite gnomes around her friend on a campfire in danger!" />
+                <track
+                  src={sub}
+                  label="English"
+                  srcLang="en-US"
+                  kind="subtitles"
+                  default
+                />
+              </MediaOutlet>
+              <MediaCommunitySkin />
+            </MediaPlayer>
           )}
         </div>
 

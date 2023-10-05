@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { Switch } from "@headlessui/react";
 
 const UploadCardModal = ({
   user,
@@ -8,8 +9,11 @@ const UploadCardModal = ({
   setFile,
   postType,
   setPostType,
+  subtitleEnabled,
+  setSubtitleEnabled,
 }) => {
   const [itemSrc, setItemSrc] = useState(null);
+  // const [enabled, setEnabled] = useState(false);
 
   function handleFile(e) {
     const _fileType = e.target.files[0].type;
@@ -129,10 +133,40 @@ const UploadCardModal = ({
             </div>
           )}
         </div>
+
+        {/* switch */}
+
+        <div className="justify-between items-center flex my-2 relative">
+          {!(postType === "video") && (
+            <div className="absolute bg-background_dark_blue/70 h-full w-full z-10" />
+          )}
+          <span className="font-normal text-[16px] text-white">
+            Do you want to add subtitles?
+          </span>
+          <Switch
+            disabled={!(postType === "video")}
+            checked={subtitleEnabled}
+            onChange={setSubtitleEnabled}
+            className={`${
+              subtitleEnabled ? "bg-button_blue" : "bg-input_box_gray"
+            }
+              relative inline-flex h-[20px] w-[36px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+          >
+            <span className="sr-only">Use setting</span>
+            <span
+              aria-hidden="true"
+              className={`${
+                subtitleEnabled ? "translate-x-[18px]" : "translate-x-0"
+              }
+                pointer-events-none inline-block h-[16px] w-[16px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+            />
+          </Switch>
+        </div>
+
         {/* post button */}
         <button
           onClick={uploadImageHandler}
-          className="w-full h-[40px] bg-button_blue rounded-md text-white text-[16px] font-normal mt-2"
+          className="w-full h-[40px] bg-button_blue rounded-md text-white text-[16px] font-normal mt-6"
         >
           Post
         </button>

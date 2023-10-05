@@ -68,7 +68,9 @@ export const CommentModal = ({
             <div className="h-[30px] w-[8%] flex justify-center mt-1">
               <img
                 src={comment.commentBy.profilePicture}
-                className="object-fill h-[30px] w-[30px] rounded-full "
+                height={30}
+                width={30}
+                className="object-fill h-full rounded-full "
               />
             </div>
 

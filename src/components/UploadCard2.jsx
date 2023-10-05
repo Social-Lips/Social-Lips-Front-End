@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import dummyProfileImage from "../assets/dummy-profile.jpeg";
 import * as Dialog from "@radix-ui/react-dialog";
+import { Switch } from "@headlessui/react";
 import UploadCardModal from "./UploadCardModal";
 import { useCreatePost } from "../hooks/useCreatePost";
 import { storage } from "../firebase";
@@ -12,6 +13,7 @@ import {
 } from "firebase/storage";
 import { v4 } from "uuid";
 import { Toaster, toast } from "react-hot-toast";
+import { useGenerateSub } from "../hooks/useGenerateSub";
 
 const UploadCard2 = ({
   user,
@@ -23,23 +25,32 @@ const UploadCard2 = ({
   const [description, setDescription] = useState("");
   const [file, setFile] = useState(null);
   const [postType, setPostType] = useState("");
+  const [subtitleEnabled, setSubtitleEnabled] = useState(false);
 
   const { createPost, newPost, isLoading, result, error, setIsLoading } =
     useCreatePost();
+
+  const { generateSub, isLoading: subGenerating } = useGenerateSub();
 
   const closeDialog = () => {
     setIsDialogOpen(false);
   };
 
-  const handleUpload = async (downloadURL) => {
-    await createPost(user._id, description, downloadURL, postType);
+  const handleUpload = async (downloadURL, _fileId) => {
+    try {
+      await createPost(user._id, description, downloadURL, postType);
+      subtitleEnabled && generateSub(_fileId, newPost.post_id);
+    } catch (error) {
+      console.log("Cannot create post or subtitle");
+    }
   };
 
   const uploadImage = () => {
     if (!file) return;
     closeDialog();
     setIsLoading(true);
-    const imgRef = ref(storage, `posts/${postType}/${v4()}`);
+    const _fileId = v4();
+    const imgRef = ref(storage, `posts/${postType}/${_fileId}`);
     const uploadTask = uploadBytesResumable(imgRef, file);
 
     uploadTask.on(
@@ -55,7 +66,7 @@ const UploadCard2 = ({
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          handleUpload(downloadURL);
+          handleUpload(downloadURL, _fileId);
         });
       }
     );
@@ -142,6 +153,8 @@ const UploadCard2 = ({
           setFile={setFile}
           postType={postType}
           setPostType={setPostType}
+          subtitleEnabled={subtitleEnabled}
+          setSubtitleEnabled={setSubtitleEnabled}
         />
       </Dialog.Content>
     </Dialog.Root>
