@@ -26,7 +26,6 @@ import MoreOptionDropDown from "./MoreOptionDropDown";
 import { useDeletePost } from "../hooks/useDeletePost";
 
 const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
-  console.log(post.subtitle_status);
   const { user: adminUserId } = useAuthContext();
   const {
     deletePost,
@@ -40,7 +39,6 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
   const sub = post?.subtitle_url;
   const [likesArray, setLikesArray] = useState(post?.likes);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const videoUrl = post?.img_url;
 
   useEffect(() => {
     // Update the likes state when the likeValue changes
@@ -120,7 +118,7 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
 
         {/* Wrap the last div to move it to the right */}
         <div className="flex-grow"></div>
-        {post.subtitle_status == "generating" && (
+        {post.subtitle_status == "generating" && post.postType == "video" && (
           <div className="self-baseline mx-12 bg-[#301F11] text-[12px] px-2 py-[2px] text-[#F1A060] rounded-[4px]">
             Subtitle generating...
           </div>
@@ -156,15 +154,15 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
             <MediaPlayer
               className="rounded-none"
               title="Sprite Fight"
-              src={{ src: videoUrl, type: "video/mp4" }}
-              poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
-              // thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
+              src={{ src: post?.img_url, type: "video/mp4" }}
+              //poster="https://image.mux.com/VZtzUzGRv02OhRnZCxcNg49OilvolTqdnFLEqBsTwaxU/thumbnail.webp?time=268&width=980"
+              //thumbnails="https://media-files.vidstack.io/sprite-fight/thumbnails.vtt"
               aspectRatio={16 / 9}
               crossorigin="anonymus"
               load="visible"
             >
               <MediaOutlet>
-                <MediaPoster alt="Girl walks into sprite gnomes around her friend on a campfire in danger!" />
+                <MediaPoster alt="" />
                 <track
                   src={sub}
                   label="English"
@@ -198,9 +196,10 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
                 </span>
               </button>
             </Dialog.Trigger>
-            <Dialog.Overlay className="bg-black/30 h-screen w-screen fixed inset-0 z-40" />
+            <Dialog.Overlay className=" data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
+
             <Dialog.Content
-              className="fixed flex justify-center items-center flex-col py-4 w-[400px] top-1/2 right-1/2 bg-[#ffff] transform translate-x-1/2 -translate-y-1/2 animate-wiggle z-50 rounded-lg drop-shadow-none"
+              className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col py-4 w-[400px] top-[50%] left-[50%] bg-background_dark_blue   translate-x-[-50%] translate-y-[-50%] z-50 rounded-2xl drop-shadow-none"
               style={{ minWidth: "200px" }}
             >
               <LikeListModal likesArray={likesArray} adminUser={adminUser} />

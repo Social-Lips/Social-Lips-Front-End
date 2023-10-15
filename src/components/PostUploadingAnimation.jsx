@@ -2,7 +2,7 @@ import React from "react";
 
 const PostUploadingAnimation = () => {
   return (
-    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg my-2 flex-col gap-y-2">
+    <div className="flex h-fit bg-background_light_blue px-5 py-4 rounded-lg flex-col gap-y-2">
       <div className="flex gap-x-3">
         <div className="h-[45px] w-[45px] flex bg-slate-700 animate-pulse rounded-full"></div>
         <div className="flex flex-col justify-around">

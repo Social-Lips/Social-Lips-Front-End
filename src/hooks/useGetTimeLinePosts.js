@@ -5,10 +5,12 @@ export const useGetTimeLinePosts = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const [timelinePosts, setTimelinePosts] = useState("");
+  const [hasMore, setHasMore] = useState(true);
 
-  const getTimelinePosts = async (user_id) => {
+  const getTimelinePosts = async (user_id, page_number) => {
     setIsLoading(true);
     setError(null);
+    setTimelinePosts("");
 
     axios({
       method: "GET",
@@ -16,11 +18,11 @@ export const useGetTimeLinePosts = () => {
       url: "http://localhost:8800/api/posts/timeline/all",
       params: {
         user_id,
+        page_number,
       },
     })
       .then((res) => {
         setIsLoading(false);
-        setTimelinePosts(res.data);
         const data = res.data;
 
         // Convert createdAt strings to Date objects
@@ -32,6 +34,7 @@ export const useGetTimeLinePosts = () => {
         formattedData.sort((a, b) => b.createdAt - a.createdAt);
 
         setTimelinePosts(formattedData);
+        formattedData.length === 0 ? setHasMore(false) : null;
       })
       .catch((err) => {
         setIsLoading(false);
@@ -39,5 +42,12 @@ export const useGetTimeLinePosts = () => {
       });
   };
 
-  return { getTimelinePosts, isLoading, error, timelinePosts };
+  return {
+    getTimelinePosts,
+    isLoading,
+    error,
+    timelinePosts,
+    hasMore,
+    setTimelinePosts,
+  };
 };

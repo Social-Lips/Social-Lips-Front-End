@@ -38,7 +38,13 @@ const UploadCard2 = ({
 
   const handleUpload = async (downloadURL, _fileId) => {
     try {
-      await createPost(user._id, description, downloadURL, postType);
+      await createPost(
+        user._id,
+        description,
+        downloadURL,
+        postType,
+        subtitleEnabled
+      );
       subtitleEnabled && generateSub(_fileId, newPost.post_id);
     } catch (error) {
       console.log("Cannot create post or subtitle");
@@ -140,10 +146,10 @@ const UploadCard2 = ({
           </div>
         </div>
       </Dialog.Trigger>
-      <Dialog.Overlay className=" data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
+      <Dialog.Overlay className="data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
 
       <Dialog.Content
-        className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col w-[490px] top-[50%] left-[50%] bg-background_dark_blue translate-x-[-50%] translate-y-[-50%] z-50 rounded-lg"
+        className="data-[state=open]:animate-contentShow data-[state=closed]:animate-contentShowClose fixed flex justify-center items-center flex-col w-[490px] top-[50%] left-[50%] bg-background_dark_blue translate-x-[-50%] translate-y-[-50%] z-50 rounded-lg"
         style={{ minWidth: "450px" }}
       >
         <UploadCardModal

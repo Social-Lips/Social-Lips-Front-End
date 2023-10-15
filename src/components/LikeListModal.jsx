@@ -34,7 +34,7 @@ const LikeListModal = ({ likesArray, adminUser }) => {
 
       <div className="h-[60vh] overflow-y-scroll px-8 mb-1">
         {isLoading ? (
-          <Dots className="text-center" size={10} />
+          <Dots className="text-center" color="white" size={10} />
         ) : (
           <>
             {/* if admin liked to the post */}
@@ -50,7 +50,7 @@ const LikeListModal = ({ likesArray, adminUser }) => {
                       className="rounded-full object-cover"
                     />
                   </div>
-                  <span className="text-[12px]">
+                  <span className="text-[12px] text-white">
                     {adminUser.first_name} {adminUser.last_name}
                   </span>
                 </div>
@@ -75,7 +75,7 @@ const LikeListModal = ({ likesArray, adminUser }) => {
                             className="rounded-full object-cover"
                           />
                         </div>
-                        <span className="text-[12px]">
+                        <span className="text-[12px] text-white">
                           {user.first_name} {user.last_name}
                         </span>
                       </div>
