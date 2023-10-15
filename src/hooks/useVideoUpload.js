@@ -1,20 +1,28 @@
-  const uploadHandler = () => {
+import { useState } from "react";
+import axios from "axios";
+
+export const useVideoUpload = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const videoUpload = (files) => {
     if (!files) return;
     setIsLoading(true);
-    
+    const frmData = new FormData();
+    frmData.append("file", files);
+    frmData.append("email", "email");
+    frmData.append("email", "email");
+
     axios({
       method: "POST",
-      url: "http://localhost:8800/upload",
+      url: "http://localhost:8800/api/video/upload",
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      data: {
-        file: files,
-      },
+      data: frmData,
     })
       .then((res) => {
+        setIsLoading(false);
         console.log(res);
-        // setIsLoading(false);
         // setProgress((res.data.loaded / res.data.total) * 100);
         // console.log((res.data.loaded / res.data.total) * 100);
       })
@@ -30,18 +38,7 @@
     //   .catch(function (error) {
     //     console.log(error);
     //   });
-
-    // axios
-    //   .get("http://localhost:8800/list")
-    //   .then(function (response) {
-    //     // handle success
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     // handle error
-    //     console.log(error);
-    //   })
-    //   .finally(function () {
-    //     // always executed
-    //   });
   };
+
+  return { videoUpload, isLoading };
+};
