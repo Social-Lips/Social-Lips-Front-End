@@ -15,8 +15,6 @@ const ProfileBody = ({ posts, user }) => {
   const [isActive, setIsActive] = useState("Posts");
   const [currentPostList, setCurrentPostList] = useState(posts);
 
-  console.log(posts);
-
   const handlePostList = (selectedItem) => {
     setIsActive(selectedItem);
     if (selectedItem == "Photos") {
@@ -46,7 +44,7 @@ const ProfileBody = ({ posts, user }) => {
   return (
     <main>
       {/* navigation */}
-      <section className="flex justify-left items-center gap-x-8 my-5 ">
+      <section className="flex justify-left items-center gap-x-8 my-5 mx-4">
         {["Posts", "Photos", "Videos", "About"].map((item) => (
           <button
             key={item}
@@ -68,7 +66,7 @@ const ProfileBody = ({ posts, user }) => {
       {/* body content cards */}
       <section className="w-full h-fit flex mt-6 justify-center gap-x-4">
         {/* left side (Followers) cards */}
-        <div className="flex flex-col w-[450px]">
+        <div className="tablet:flex flex-col w-[450px] hidden">
           <ProfileAbout user={user} />
           <FollowYouCard
             cardTitle={"Followers"}

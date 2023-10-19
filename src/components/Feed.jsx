@@ -119,7 +119,7 @@ const Feed = () => {
     <div className="pt-[60px] px-4 flex justify-center gap-x-2 relative">
       <>
         {/* left column */}
-        <div className="h-[90vh] w-[380px] gap-y-2 flex flex-col relative">
+        <div className="h-[90vh] w-[380px] min-w-[250px] gap-y-2 tablet:flex flex-col relative hidden">
           {/* profile card */}
           <ProfileCard user={user[0]} />
 
@@ -136,7 +136,12 @@ const Feed = () => {
         </div>
 
         {/* middle column */}
-        <div className="h-[473px] w-[600px] flex flex-col">
+        <div className="h-[473px] w-[600px] min-w-[400px] flex flex-col">
+          {/* profile card */}
+          <div className="tablet:hidden block mt-3">
+            <ProfileCard user={user[0]} />
+          </div>
+
           {!user ? (
             <PostUploadCardLoader />
           ) : (
@@ -194,7 +199,7 @@ const Feed = () => {
         </div>
 
         {/* right column */}
-        <div className="h-[473px] w-[380px]">
+        <div className="h-[473px] w-[380px] tablet:block hidden">
           <FollowingCard adminUser={user} />
         </div>
       </>

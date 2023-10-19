@@ -5,13 +5,13 @@ import dummyProfileImage from "../assets/dummy-profile.jpeg";
 
 const ProfileCard = ({ user }) => {
   return (
-    <div className="relative h-fit bg-background_light_blue rounded-lg">
+    <div className="relative h-fit bg-background_light_blue rounded-lg tablet:mb-0 mb-3">
       {/* cover image */}
-      <div className="h-[126px] w-[380px] flex ">
+      <div className="h-[126px] w-auto flex ">
         <img
           src={user?.coverPicture || dummyCoverImage}
           height={126}
-          width={380}
+          width={600}
           className="object-cover rounded-t-lg"
         />
       </div>
@@ -65,7 +65,7 @@ const ProfileCard = ({ user }) => {
 
       {/* my profile button */}
       <Link to={`/profile/${user?._id}`}>
-        <p className="text-center my-5 font-normal text-[20px] text-button_blue cursor-pointer">
+        <p className="text-center py-5 font-normal text-[20px] text-button_blue cursor-pointer">
           My Profile
         </p>
       </Link>

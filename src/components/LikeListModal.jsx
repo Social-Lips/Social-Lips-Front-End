@@ -56,7 +56,7 @@ const LikeListModal = ({ likesArray, adminUser }) => {
                 </div>
 
                 {/* ---- */}
-                <div className="w-[290px] h-[0.1px] bg-font_light_gray self-end" />
+                <div className="w-[88%] h-[0.1px] bg-font_light_gray self-end mt-1" />
               </div>
             )}
             {/* others */}

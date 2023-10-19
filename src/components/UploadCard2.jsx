@@ -104,7 +104,7 @@ const UploadCard2 = ({
       <Dialog.Trigger>
         <div className="flex bg-background_light_blue px-4 py-4 rounded-lg justify-between mb-2 cursor-pointer">
           {/* image div */}
-          <div className="h-[40px] w-[8%] flex mr-2">
+          <div className="h-[40px] w-[40px] flex mr-2">
             <img
               src={user?.profilePicture || dummyProfileImage}
               height={40}
@@ -149,8 +149,8 @@ const UploadCard2 = ({
       <Dialog.Overlay className="data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
 
       <Dialog.Content
-        className="data-[state=open]:animate-contentShow data-[state=closed]:animate-contentShowClose fixed flex justify-center items-center flex-col w-[490px] top-[50%] left-[50%] bg-background_dark_blue translate-x-[-50%] translate-y-[-50%] z-50 rounded-lg"
-        style={{ minWidth: "450px" }}
+        className="data-[state=open]:animate-contentShow data-[state=closed]:animate-contentShowClose fixed flex justify-center items-center flex-col w-[350px] tablet:w-[490px] top-[50%] left-[50%] bg-background_dark_blue translate-x-[-50%] translate-y-[-50%] z-50 rounded-lg"
+        // style={{ minWidth: "450px" }}
       >
         <UploadCardModal
           user={user}
