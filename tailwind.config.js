@@ -56,6 +56,16 @@ export default {
           "contentShowClose 100ms cubic-bezier(0.1, 0.1, 0.1, 0.1)",
       },
     },
+    screens: {
+      tablet: "1100px",
+      // => @media (min-width: 640px) { ... }
+
+      laptop: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      desktop: "1280px",
+      // => @media (min-width: 1280px) { ... }
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };

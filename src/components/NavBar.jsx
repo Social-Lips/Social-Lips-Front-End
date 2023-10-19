@@ -25,7 +25,7 @@ const NavBar = () => {
     logout();
   };
   return (
-    <nav className="bg-background_dark_blue h-[8vh] flex justify-between items-center backdrop-blur-md px-4 fixed w-full z-50">
+    <nav className="bg-background_dark_blue/80 h-[8vh] flex justify-between items-center backdrop-blur-md px-4 fixed w-full z-50">
       {/* image and searchbox */}
       <div className="flex justify-center items-center gap-x-1">
         <Link to={"/"}>
@@ -33,7 +33,7 @@ const NavBar = () => {
         </Link>
         <input
           type="text"
-          className="h-[40px] w-[250px] rounded-full pl-5 text-[12px] font-extralight bg-input_box_gray border-none text-white"
+          className="h-[40px] tablet:w-[250px] w-auto rounded-full pl-5 text-[12px] font-extralight bg-input_box_gray border-none text-white"
           placeholder="#Explore"
         />
       </div>
@@ -42,9 +42,9 @@ const NavBar = () => {
       <Dialog.Root>
         <div className="flex justify-center items-center gap-x-1">
           <Link to={`/`}>
-            <div className="bg-white h-[36px] w-[90px] flex justify-center items-center rounded-full gap-1 cursor-pointer">
+            <div className="bg-white h-[36px] w-auto tablet:px-3 p-2  flex justify-center items-center rounded-full gap-1 cursor-pointer">
               <img src="../src/assets/home1.svg" height={22} width={22} />
-              <p className="text-[12px] font-bold">Home</p>
+              <p className="text-[12px] font-bold tablet:block hidden">Home</p>
             </div>
           </Link>
 

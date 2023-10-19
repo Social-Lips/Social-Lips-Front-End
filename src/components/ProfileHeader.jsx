@@ -65,7 +65,7 @@ const ProfileHeader = ({ paramsUser }) => {
   return (
     <div className="w-full relative">
       {/* cover image */}
-      <div className="w-[1100px] h-[350px] flex relative bg-black rounded-xl ">
+      <div className="w-auto tablet:h-[350px] h-[200px] flex relative bg-black rounded-xl">
         <img
           src={paramsUser?.coverPicture || dummyCoverImage}
           height={350}
@@ -76,7 +76,7 @@ const ProfileHeader = ({ paramsUser }) => {
       </div>
 
       {/* profile image */}
-      <div className="h-[200px] w-[200px] flex absolute top-2/3 transform -translate-y-[10%] border-[4px] border-background_dark_blue rounded-full">
+      <div className="h-[120px] w-[120px] tablet:h-[200px] tablet:w-[200px] flex absolute tablet:top-2/3 transform -translate-y-[10%] border-[4px] border-background_dark_blue rounded-full">
         <img
           className="object-cover rounded-full"
           src={paramsUser?.profilePicture || dummyProfileImage}
@@ -86,21 +86,21 @@ const ProfileHeader = ({ paramsUser }) => {
       </div>
 
       {/* about and buttons */}
-      <div className="flex justify-between items-center mt-4">
+      <div className="flex justify-between items-center tablet:mt-0 mt-4 pl-10 pr-2 tablet:px-0">
         {/* description */}
-        <div className="text-white ml-[240px]">
-          <h1 className="text-[32px] font-bold">
+        <div className="text-white tablet:ml-[240px] ml-[100px]">
+          <h1 className="tablet:text-[32px] font-bold">
             {paramsUser?.first_name} <span>{paramsUser?.last_name}</span>
           </h1>
-          <span className="text-[20px] font-extralight leading-3">
+          <span className="tablet:text-[20px] text-[10px]  font-extralight tablet:leading-3 leading-6">
             {paramsUser?.bio}
           </span>
           <div className="flex justify-right items-center gap-x-5">
-            <span className="text-[12px] font-extralight">
+            <span className="tablet:text-[12px] text-[10px] font-extralight">
               {paramsUser?.followers.length} Followers
             </span>
             <div className="w-[1px] h-[20px] bg-input_box_gray" />
-            <span className="text-[12px] font-extralight">
+            <span className="tablet:text-[12px]  text-[10px] font-extralight">
               {paramsUser?.followings.length} Followings
             </span>
           </div>
@@ -113,7 +113,7 @@ const ProfileHeader = ({ paramsUser }) => {
               <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <Dialog.Trigger>
                   <button
-                    className="w-[110px] h-[40px] border-[0.2px] rounded-lg border-input_box_gray font-bold text-[14px] text-white hover:bg-white hover:text-black"
+                    className="tablet:w-[110px] tablet:h-[40px] w-[60px] h-[30px] border-[0.2px] rounded-lg border-input_box_gray font-bold tablet:text-[14px] text-[10px] text-white hover:bg-white hover:text-black"
                     onClick={openDialog}
                   >
                     Edit Profile
@@ -130,7 +130,7 @@ const ProfileHeader = ({ paramsUser }) => {
             ) : (
               <button
                 onClick={(e) => buttonHandle(paramsUser._id, adminUser._id, e)}
-                className="w-[110px] h-[40px] flex justify-center items-center border-[0.2px] rounded-lg border-input_box_gray font-bold text-[14px] bg-white hover:bg-transparent hover:text-white"
+                className="tablet:w-[110px] tablet:h-[40px] w-[60px] h-[30px] flex justify-center items-center border-[0.2px] rounded-lg border-input_box_gray font-bold tablet:text-[14px] text-[10px] bg-white hover:bg-transparent hover:text-white"
               >
                 {loading || unFollowUserLoading ? (
                   <Spinner size={13} />

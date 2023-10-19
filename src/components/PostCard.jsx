@@ -199,7 +199,7 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
             <Dialog.Overlay className=" data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
 
             <Dialog.Content
-              className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col py-4 w-[400px] top-[50%] left-[50%] bg-background_dark_blue   translate-x-[-50%] translate-y-[-50%] z-50 rounded-2xl drop-shadow-none"
+              className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col py-4 w-[350px] tablet:w-[400px] top-[50%] left-[50%] bg-background_dark_blue   translate-x-[-50%] translate-y-[-50%] z-50 rounded-2xl drop-shadow-none"
               style={{ minWidth: "200px" }}
             >
               <LikeListModal likesArray={likesArray} adminUser={adminUser} />
@@ -261,7 +261,7 @@ const PostCard = ({ post, postOwner, adminUser, setAllPosts }) => {
             <Dialog.Overlay className=" data-[state=open]:animate-overlayShow bg-black/60 h-screen w-screen fixed inset-0 z-40" />
 
             <Dialog.Content
-              className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col py-4 w-[490px] top-[50%] left-[50%] bg-background_dark_blue   translate-x-[-50%] translate-y-[-50%] z-50 rounded-2xl drop-shadow-none"
+              className="data-[state=open]:animate-contentShow fixed flex justify-center items-center flex-col py-4 w-[350px] tablet:w-[490px] top-[50%] left-[50%] bg-background_dark_blue   translate-x-[-50%] translate-y-[-50%] z-50 rounded-2xl drop-shadow-none"
               style={{ minWidth: "300px" }}
             >
               <CommentModal

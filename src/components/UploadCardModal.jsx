@@ -72,7 +72,7 @@ const UploadCardModal = ({
             onChange={(e) => setDescription(e.target.value)}
             className="flex p-0 w-full bg-transparent border-none text-white font-thin text-[16px] focus:ring-0 resize-none overflow-y-scroll stroke-background_light_blue"
             placeholder="What's on your mind, Silva?"
-            rows={3}
+            rows={2}
           />
         </div>
 

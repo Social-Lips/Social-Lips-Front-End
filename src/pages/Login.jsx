@@ -17,16 +17,16 @@ function Login(props) {
   };
 
   return (
-    <main className="flex">
+    <main className="flex justify-center">
       {/* logo section */}
-      <div className="bg-background_dark_blue text-white h-screen w-1/2 flex justify-center items-center flex-col">
+      <div className="bg-background_dark_blue text-white h-screen w-1/2 tablet:flex justify-center items-center flex-col hidden">
         <img src="../src/assets/logo.png" alt="logo" width={320} height={320} />
         <h1 className="text-[64px] font-extrabold">Social Lips</h1>
         <p className="text-[20px] font-light leading-3">SOUL FOR SILENT LIPS</p>
       </div>
 
       {/* sign up form section */}
-      <div className="bg-background_light_blue w-1/2 h-screen px-40 flex flex-col justify-center">
+      <div className="bg-background_light_blue tablet:w-1/2 min-w-[370px] h-screen tablet:px-40 px-4 flex flex-col justify-center">
         <h1 className="text-white text-[24px] font-medium mb-10">
           Hey, Hello 👋
         </h1>
@@ -48,7 +48,7 @@ function Login(props) {
           />
 
           {/* register button */}
-          <button className="bg-button_blue text-white text-[16px] font-semibold h-[45px] rounded-md mb-8 flex justify-center items-center">
+          <button className="bg-button_blue text-white tablet:text-[16px] text-[10px] font-semibold h-[45px] rounded-md mb-8 flex justify-center items-center">
             {isLoading ? <Spinner size={13} /> : <>Log In</>}
           </button>
 
@@ -60,11 +60,11 @@ function Login(props) {
           </div>
 
           {/* google button */}
-          <button className="bg-white text-black text-[16px] font-semibold h-[45px] rounded-md flex justify-center items-center mb-8">
+          <button className="bg-white text-black tablet:text-[16px] text-[10px] font-semibold h-[45px] rounded-md flex justify-center items-center mb-8">
             <img
               src="../src/assets/google.svg"
-              height={30}
-              width={30}
+              height={20}
+              width={20}
               alt="logo"
               className="mr-2"
             />
@@ -72,12 +72,13 @@ function Login(props) {
           </button>
 
           {/* login link */}
-          <p className="text-white font-light text-[16px] self-center">
+          <p className="text-white font-light tablet:text-[16px] text-[10px]  self-center">
             Don’t you have an account?
             <Link
               to={"/signup"}
-              className="font-light text-[16px] text-[#71A0F7] cursor-pointer"
+              className="font-light tablet:text-[16px] text-[10px]  text-[#71A0F7] cursor-pointer"
             >
+              {" "}
               Register Here
             </Link>
           </p>
