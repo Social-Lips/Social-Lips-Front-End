@@ -92,7 +92,7 @@ const ProfileHeader = ({ paramsUser }) => {
           <h1 className="tablet:text-[32px] font-bold">
             {paramsUser?.first_name} <span>{paramsUser?.last_name}</span>
           </h1>
-          <span className="tablet:text-[20px] text-[10px]  font-extralight tablet:leading-3 leading-6">
+          <span className="tablet:text-[20px] text-[10px]  font-extralight tablet:leading-3 leading-3">
             {paramsUser?.bio}
           </span>
           <div className="flex justify-right items-center gap-x-5">
@@ -113,10 +113,18 @@ const ProfileHeader = ({ paramsUser }) => {
               <Dialog.Root open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <Dialog.Trigger>
                   <button
-                    className="tablet:w-[110px] tablet:h-[40px] w-[60px] h-[30px] border-[0.2px] rounded-lg border-input_box_gray font-bold tablet:text-[14px] text-[10px] text-white hover:bg-white hover:text-black"
+                    className="tablet:w-[110px] invisible tablet:visible tablet:h-[40px] w-[60px] h-[30px] border-[0.2px] rounded-lg border-input_box_gray font-bold tablet:text-[14px] text-[10px] text-white hover:bg-white hover:text-black"
                     onClick={openDialog}
                   >
                     Edit Profile
+                  </button>
+                  <button className="ml-1 visible tablet:invisible bg-button_blue p-1 rounded-sm">
+                    <img
+                      src="../src/assets/edit.svg"
+                      height={15}
+                      width={15}
+                      className="object-contain"
+                    />
                   </button>
                 </Dialog.Trigger>
                 <Dialog.Overlay className="bg-black/30 h-screen w-screen fixed inset-0 z-40" />

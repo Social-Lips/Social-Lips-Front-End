@@ -6,7 +6,7 @@ export const useGenerateSub = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [result, setResult] = useState(null);
 
-  const generateSub = async (_fileId, _postId) => {
+  const generateSub = async (_fileId, _postId, downloadURL) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
@@ -15,7 +15,7 @@ export const useGenerateSub = () => {
       method: "GET",
       headers: { "Content-Type": "multipart/form-data" },
       url: `http://127.0.0.1:5000/download/${_fileId}`,
-      params: { _postId },
+      params: { downloadURL },
     })
       .then((res) => {
         setIsLoading(false);

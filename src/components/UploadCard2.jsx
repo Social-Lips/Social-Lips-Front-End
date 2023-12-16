@@ -45,7 +45,7 @@ const UploadCard2 = ({
         postType,
         subtitleEnabled
       );
-      subtitleEnabled && generateSub(_fileId, newPost.post_id);
+      subtitleEnabled && generateSub(_fileId, newPost.post_id, downloadURL);
     } catch (error) {
       console.log("Cannot create post or subtitle");
     }
