@@ -15,7 +15,7 @@ export const useGenerateSub = () => {
       method: "GET",
       headers: { "Content-Type": "multipart/form-data" },
       url: `http://127.0.0.1:5000/download/${_fileId}`,
-      params: { downloadURL },
+      params: { _postId },
     })
       .then((res) => {
         setIsLoading(false);
