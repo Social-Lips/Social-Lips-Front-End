@@ -6,7 +6,7 @@ export const useGenerateSub = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [result, setResult] = useState(null);
 
-  const generateSub = async (_fileId, _postId) => {
+  const generateSub = async (_fileId, _postId, downloadURL) => {
     setIsLoading(true);
     setError(null);
     setResult(null);

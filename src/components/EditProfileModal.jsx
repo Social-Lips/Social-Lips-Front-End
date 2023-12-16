@@ -40,6 +40,7 @@ const EditProfileModal = ({ user }) => {
   };
 
   const handleProfilePictureFile = (e) => {
+    console.log(e.target.files[0]);
     setProfilePic(e.target.files[0]);
   };
   const handleCoverPictureFile = (e) => {
@@ -54,7 +55,7 @@ const EditProfileModal = ({ user }) => {
     error && notifyError("Can't Update");
     setTimeout(() => {
       result && navigate("/");
-    }, 1000);
+    }, 3000);
   }, [result, error]);
 
   return (
