@@ -6,6 +6,7 @@ export const useCreatePost = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [newPost, setNewPost] = useState(null);
   const [result, setResult] = useState(null);
+  let newPostId;
 
   const createPost = async (
     user_id,
@@ -36,6 +37,8 @@ export const useCreatePost = () => {
       .then((res) => {
         setIsLoading(false);
         setNewPost(res.data);
+        console.log(res.data.post_id);
+        newPostId = res.data.post_id;
         setResult("Upload Successfully");
       })
       .catch((err) => {
@@ -45,5 +48,13 @@ export const useCreatePost = () => {
       });
   };
 
-  return { createPost, newPost, isLoading, error, result, setIsLoading };
+  return {
+    createPost,
+    newPost,
+    newPostId,
+    isLoading,
+    error,
+    result,
+    setIsLoading,
+  };
 };

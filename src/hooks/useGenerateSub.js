@@ -6,15 +6,17 @@ export const useGenerateSub = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [result, setResult] = useState(null);
 
-  const generateSub = async (_fileId, _postId, downloadURL) => {
+  const generateSub = async (_postId) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
 
+    //657d48f5fe42e0de63f2fe50
+
     axios({
       method: "GET",
       headers: { "Content-Type": "multipart/form-data" },
-      url: `http://127.0.0.1:5000/download/${_fileId}`,
+      url: `https://social-lips-398506.et.r.appspot.com/mongo/${_postId}`,
       params: { _postId },
     })
       .then((res) => {

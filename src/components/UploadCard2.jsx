@@ -27,8 +27,15 @@ const UploadCard2 = ({
   const [postType, setPostType] = useState("");
   const [subtitleEnabled, setSubtitleEnabled] = useState(false);
 
-  const { createPost, newPost, isLoading, result, error, setIsLoading } =
-    useCreatePost();
+  const {
+    createPost,
+    newPost,
+    newPostId,
+    isLoading,
+    result,
+    error,
+    setIsLoading,
+  } = useCreatePost();
 
   const { generateSub, isLoading: subGenerating } = useGenerateSub();
 
@@ -45,11 +52,18 @@ const UploadCard2 = ({
         postType,
         subtitleEnabled
       );
-      subtitleEnabled && generateSub(_fileId, newPost.post_id, downloadURL);
+      // console.log(_fileId);
+      // console.log(newPost);
+      // console.log(downloadURL);
+      // subtitleEnabled && generateSub(_fileId, newPost.post_id, downloadURL);
     } catch (error) {
       console.log("Cannot create post or subtitle");
     }
   };
+
+  useEffect(() => {
+    newPost && generateSub(newPost.post_id);
+  }, [newPost]);
 
   const uploadImage = () => {
     if (!file) return;
